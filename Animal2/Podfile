@@ -1,0 +1,27 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'Animal2' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Animal2
+
+  pod 'ObjectMapper' #Json套件
+    pod 'Moya' #API套件
+    pod 'Moya-ObjectMapper'	
+    pod 'RxCocoa'
+    pod 'Moya/RxSwift'
+    pod 'Moya-ObjectMapper/RxSwift'
+
+  target 'Animal2Tests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'Animal2UITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
