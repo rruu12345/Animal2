@@ -9,13 +9,13 @@
 import UIKit
 import RxSwift
 
-class OneViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class OneViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var BotcollectionView: UICollectionView!
     @IBOutlet weak var TopcollectionView: UICollectionView!
     @IBOutlet weak var landing: UIImageView!
     @IBOutlet weak var waiting: UIActivityIndicatorView!
-    
+
     var bag: DisposeBag! = DisposeBag()
     var animaldata: [AnimalModel]!
     var animaldata2: [AnimalModel]!
@@ -24,7 +24,7 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
     var top: [String] = ["全部", "貓", "狗", "台北", "台南", "雲林", "高雄", "其它"]
     var topnum: Int!
     var imageApi = ImageAPI()
-
+    var screenFull = UIScreen.main.bounds.size
     let viewModel: AnimalViewModel = AnimalViewModel()
 
     deinit {
@@ -48,8 +48,53 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
         self.waiting.alpha = 0
         BotcollectionView.reloadData()
     }
+    
+    //cell 大小
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == self.TopcollectionView {
+            if screenFull.height >= 812 {
+                return CGSize(width: 90, height: 115)
+            } else {
+                return CGSize(width: 72, height: 92)
+            }
+        } else {
+            if screenFull.height >= 812 {
+                return CGSize(width: 120, height: 200)
+            } else {
+                return CGSize(width: 99, height: 165)
+            }
+        }
+    }
+    
+    //cell 條目間距 橫向的左右間距，縱向的上下間距
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,  minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        if collectionView == self.TopcollectionView{
+            return 15
+        }else{
+            return  5
+        }
+    }
+    
+    //cell 條目間距 橫向的上下間距，縱向的左右間距
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,  minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        if collectionView == self.TopcollectionView{
+            return 0
+        }else{
+            return  5
+        }
+    }
 
-    override func viewDidDisappear(_ animated: Bool) {
+    //cell離邊的距離
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if collectionView == self.TopcollectionView {
+            return UIEdgeInsets(top: screenFull.height * 75 / 896, left: screenFull.width * 60 / 896, bottom: screenFull.height * 5 / 896, right: screenFull.width * 60 / 896)
+        } else {
+            if screenFull.height >= 812 {
+                return UIEdgeInsets(top: screenFull.height * 10 / 896, left: screenFull.width * 15 / 896, bottom: screenFull.height * 20 / 896, right: screenFull.width * 15 / 896)
+            } else {
+                return UIEdgeInsets(top: 10, left:15, bottom: 20 , right: 15)
+            }
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { //->3
@@ -63,7 +108,7 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
             }
             return self.count }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell { //->4
         if collectionView == self.TopcollectionView { //top
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopCollectionViewCell", for: indexPath) as! TopCollectionViewCell

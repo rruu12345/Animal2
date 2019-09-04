@@ -9,16 +9,17 @@
 import UIKit
 import RxSwift
 
-class FavoritesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+class FavoritesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var waiting: UIActivityIndicatorView!
-    
+
     var imageApi = ImageAPI()
     var row: Int = 0
     var loveArray: [String] = []
     var lovetry: [[String]] = []
     var lovetry2: [Int] = []
+    var screenFull = UIScreen.main.bounds.size
 
     let viewModel: AnimalViewModel = AnimalViewModel()
 
@@ -29,22 +30,30 @@ class FavoritesViewController: UIViewController, UICollectionViewDelegate, UICol
     }
 
     override func viewWillAppear(_ animated: Bool) {
-
+        self.waiting.alpha = 0
+        self.waiting.stopAnimating()
         loveArray = UserDefaults.standard.stringArray(forKey: "loveArray") ?? []
         if loveArray != [] as! [String] {
             lovetry = UserDefaults.standard.object(forKey: "lovetry") as! [[String]]
             lovetry2 = UserDefaults.standard.object(forKey: "lovetry2") as! [Int]
-            self.waiting.alpha = 0
-            self.waiting.stopAnimating()
             collectionView.reloadData()
         } else {
             print("oops")
         }
     }
-    
-    // 设置cell和视图边的间距
+
+    //cell 大小
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if screenFull.height >= 812 {
+            return CGSize(width: 120, height: 200)
+        } else {
+            return CGSize(width: 99, height: 165)
+        }
+    }
+
+    //cell離邊的距離
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left: 10, bottom: 30, right: 10)
+        return UIEdgeInsets(top: 10, left: screenFull.width/2, bottom: 25, right: screenFull.width/2)
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -12,14 +12,22 @@ class TopCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var topImage: UIImageView!
     @IBOutlet weak var Lable: UILabel!
     
+    @IBOutlet weak var View: UIView!
     static var nib : UINib{
         return UINib(nibName: "TopCollectionViewCell", bundle: nil)
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        var screen = UIScreen.main.bounds.size
         // Initialization code
-        topImage.layer.cornerRadius = topImage.frame.height/2
+        if screen.height >= 812{
+            topImage.layer.cornerRadius = topImage.frame.height/2
+            View.layer.cornerRadius = View.frame.height/2
+        } else{
+            topImage.layer.cornerRadius = topImage.frame.height/2.5
+            View.layer.cornerRadius = View.frame.height/2.5
+        }
     }
     public func configCellWithModel(top : [String] , i : Int){
         topImage.image = UIImage(named: top[i])
