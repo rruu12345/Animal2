@@ -14,8 +14,8 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
     @IBOutlet weak var BotcollectionView: UICollectionView!
     @IBOutlet weak var TopcollectionView: UICollectionView!
     @IBOutlet weak var landing: UIImageView!
-    @IBOutlet weak var wait: UIImageView!
-
+    @IBOutlet weak var waiting: UIActivityIndicatorView!
+    
     var bag: DisposeBag! = DisposeBag()
     var animaldata: [AnimalModel]!
     var animaldata2: [AnimalModel]!
@@ -33,35 +33,19 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     override func viewDidLoad() { // ->1
         super.viewDidLoad()
-        if self.arrayCount == nil {
-            self.landing.alpha = 1
-        }
+        self.landing.alpha = 1
         //top下邊線
         self.TopcollectionView.layer.borderColor = UIColor.lightGray.cgColor
 
         BotcollectionView.register(OneCollectionViewCell.nib, forCellWithReuseIdentifier: "OneCollectionViewCell")
         TopcollectionView.register(TopCollectionViewCell.nib, forCellWithReuseIdentifier: "TopCollectionViewCell")
-
-        //取直
-        viewModel.requestAnimalData().subscribe(onNext: { [weak self] (result) in
-            guard let `self` = self else { return }
-            self.animaldata2 = self.viewModel.All
-            self.arrayCount = self.animaldata2.count
-            print(":pppppppp")
-            DispatchQueue.main.async {
-                self.BotcollectionView.reloadData()
-                self.landing.image = nil
-            }
-        }, onError: { (Error) in
-            print("fuckkkkkkkk:\(Error)")
-        }, onCompleted: {
-            print("yaaaaaaaaa")
-        }, onDisposed: nil).disposed(by: bag)
+        animalApiRequest()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         whichData()
-        self.wait.alpha = 0
+        self.waiting.stopAnimating()
+        self.waiting.alpha = 0
         BotcollectionView.reloadData()
     }
 
@@ -79,6 +63,7 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
             }
             return self.count }
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell { //->4
         if collectionView == self.TopcollectionView { //top
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopCollectionViewCell", for: indexPath) as! TopCollectionViewCell
@@ -115,11 +100,12 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
             BotcollectionView.reloadData()
         }
         else { //點擊bottom
-            self.wait.alpha = 1
+            self.waiting.alpha = 1
+            self.waiting.startAnimating()
             print("點擊\(indexPath.row + 1)")
             UserDefaults.standard.set(self.topnum, forKey: "topnum")
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                self.performSegue(withIdentifier: "showanimal", sender: indexPath.row)
+                self.performSegue(withIdentifier: "showanimal", sender: self.animaldata[indexPath.row].animal_subid)
             }
         }
     }
@@ -127,7 +113,25 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
     //傳row值給下一頁
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let controller = segue.destination as! TwoViewController
-        controller.row = sender as? Int
+        controller.ID = sender as? String
+    }
+
+    //取值
+    func animalApiRequest() {
+        viewModel.requestAnimalData().subscribe(onNext: { [weak self] (result) in
+            guard let `self` = self else { return }
+            self.animaldata2 = self.viewModel.All
+            self.arrayCount = self.animaldata2.count
+            print(":pppppppp")
+            DispatchQueue.main.async {
+                self.BotcollectionView.reloadData()
+                self.landing.image = nil
+            }
+        }, onError: { (Error) in
+            print("fuckkkkkkkk:\(Error)")
+        }, onCompleted: {
+            print("yaaaaaaaaa")
+        }, onDisposed: nil).disposed(by: bag)
     }
 
     //判斷是拿哪個資料

@@ -11,7 +11,9 @@ import RxSwift
 
 class TwoViewController: UIViewController {
 
-    var row: Int!
+    var delete : Int!
+    var ID: String!
+    var iii: Int!
     var topnum: Int!
     var animaldata: [AnimalModel]!
     var animaldata2: [AnimalModel]!
@@ -26,8 +28,8 @@ class TwoViewController: UIViewController {
     var lovetry: [[String]] = {
         return UserDefaults.standard.object(forKey: "lovetry") as? [[String]] ?? []
     }()
-    var lovetry2: [[Int]] = {
-        return UserDefaults.standard.object(forKey: "lovetry2") as? [[Int]] ?? []
+    var lovetry2: [Int] = {
+        return UserDefaults.standard.object(forKey: "lovetry2") as? [Int] ?? []
     }()
     let viewModel: AnimalViewModel = AnimalViewModel()
 
@@ -45,63 +47,91 @@ class TwoViewController: UIViewController {
     @IBOutlet weak var stel: UILabel!
     @IBOutlet weak var sex: UILabel!
     @IBOutlet weak var favorites: UIButton!
-    @IBOutlet weak var wait: UIImageView!
-
+    @IBOutlet weak var waiting: UIActivityIndicatorView!
+    
     @IBAction func favorites(_ sender: Any) {
-        //if else &資料加入收藏夜
-        loveArray = ["\(animaldata[row].album_file)", "\(animaldata[row].animal_kind)", "\(animaldata[row].animal_sex)", "\(animaldata[row].animal_subid)"]
-        row2 = [row, topnum]
-        UserDefaults.standard.set(loveArray, forKey: "loveArray")
-        UserDefaults.standard.set(row2, forKey: "row2")
-        print("收藏了喔喔喔")
-
-        if lovetry == [] as! [[String]] {
-            self.favorites.setImage(UIImage(named: "Favorites choose"), for: .normal)
-            print("nodata")
-            lovetry.append(loveArray)
-            lovetry2.append(row2)
-            print(lovetry)
-            print(lovetry2)
-            UserDefaults.standard.set(lovetry, forKey: "lovetry")
-            UserDefaults.standard.set(lovetry2, forKey: "lovetry2")
+        if waiting.alpha == 1 {
+            print("等等啦")
+        } else if iii == nil {
+            print("資料被刪除了")
+            self.favorites.setImage(UIImage(named: "Favorites"), for: .normal)
         } else {
-            print("有data")
-            var aaa = 0
-            for i in 0...(lovetry.count - 1){
-                if lovetry[i][3].contains(animaldata[row].animal_subid) {
-                    aaa = 1
-                    print("刪除唷")
-                    self.favorites.setImage(UIImage(named: "Favorites"), for: .normal)
-                    lovetry.remove(at: i)
-                    lovetry2.remove(at: i)
+            loveArray = ["\(animaldata[iii].album_file)", "\(animaldata[iii].animal_kind)", "\(animaldata[iii].animal_sex)", "\(animaldata[iii].animal_subid)"]
+            UserDefaults.standard.set(loveArray, forKey: "loveArray")
+            print("收藏了喔喔喔")
+
+            if lovetry == [] as! [[String]] {
+                print("no lovetry 先收藏再說")
+                self.favorites.setImage(UIImage(named: "Favorites choose"), for: .normal)
+                lovetry.append(loveArray)
+                lovetry2.append(topnum)
+                UserDefaults.standard.set(lovetry, forKey: "lovetry")
+                UserDefaults.standard.set(lovetry2, forKey: "lovetry2")
+            } else {
+                //有data 判斷刪或儲
+                var aaa = 0
+                for i in 0...(lovetry.count - 1) {
+                    if lovetry[i][3].contains(animaldata[iii].animal_subid) {
+                        aaa = 1
+                        print("刪除唷")
+                        self.favorites.setImage(UIImage(named: "Favorites"), for: .normal)
+                        lovetry.remove(at: i)
+                        lovetry2.remove(at: i)
+                        UserDefaults.standard.set(lovetry, forKey: "lovetry")
+                        UserDefaults.standard.set(lovetry2, forKey: "lovetry2")
+                        break
+                    }
+                }
+                if aaa == 0 {
+                    print("添加唷")
+                    self.favorites.setImage(UIImage(named: "Favorites choose"), for: .normal)
+                    lovetry.append(loveArray)
+                    lovetry2.append(topnum)
                     print(lovetry)
                     print(lovetry2)
                     UserDefaults.standard.set(lovetry, forKey: "lovetry")
                     UserDefaults.standard.set(lovetry2, forKey: "lovetry2")
-                    break
                 }
-            }
-            if aaa == 0{
-                print("添加唷")
-                self.favorites.setImage(UIImage(named: "Favorites choose"), for: .normal)
-                lovetry.append(loveArray)
-                lovetry2.append(row2)
-                print(lovetry)
-                print(lovetry2)
-                UserDefaults.standard.set(lovetry, forKey: "lovetry")
-                UserDefaults.standard.set(lovetry2, forKey: "lovetry2")
             }
         }
     }
-    
-    //判斷愛心的圖片
-    func buttonImage(){
-        if lovetry == [] as! [[String]]{
+
+    //返回鍵
+    @IBAction func backcontroller(_ sender: Any) {
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.waiting.alpha = 1
+        self.waiting.startAnimating()
+        topnum = UserDefaults.standard.integer(forKey: "topnum")
+        animalApiRequest()
+    }
+
+    deinit {
+        UserDefaults.standard.removeObject(forKey: "topnum")
+        print("釋放topnum")
+    }
+
+    //判斷愛心的圖片&無資料
+    func buttonImage() {
+        if lovetry == [] as! [[String]] {
             print("image no data")
-        } else{
+            self.waiting.alpha = 0
+        } else if iii == nil {
+            self.waiting.alpha = 0
+            delete = UserDefaults.standard.integer(forKey: "delete")
+            self.favorites.setImage(UIImage(named: "Favorites"), for: .normal)
+            lovetry.remove(at: delete)
+            lovetry2.remove(at: delete)
+            UserDefaults.standard.set(lovetry, forKey: "lovetry")
+            UserDefaults.standard.set(lovetry2, forKey: "lovetry2")
+        } else {
             var aaa = 0
-            for i in 0...(lovetry.count - 1){
-                if lovetry[i][3].contains(animaldata[row].animal_subid) {
+            self.waiting.alpha = 0
+            for i in 0...(lovetry.count - 1) {
+                if lovetry[i][3].contains(animaldata[iii].animal_subid) {
                     print("已收藏")
                     aaa = 1
                     self.favorites.setImage(UIImage(named: "Favorites choose"), for: .normal)
@@ -113,25 +143,8 @@ class TwoViewController: UIViewController {
             }
         }
     }
-    
-    //返回鍵
-    @IBAction func backcontroller(_ sender: Any) {
-        self.presentingViewController?.dismiss(animated: true, completion: nil)
-    }
 
-    deinit {
-        UserDefaults.standard.removeObject(forKey: "topnum")
-        print("釋放topnum")
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.wait.alpha = 1
-        topnum = UserDefaults.standard.integer(forKey: "topnum")
-        animalApiRequest()
-    }
-
-    //取直
+    //取值
     func animalApiRequest() {
         viewModel.requestAnimalData().subscribe(onNext: { [weak self] (result) in
             guard result else { return }
@@ -141,73 +154,87 @@ class TwoViewController: UIViewController {
             self.uiText()
             self.imageGet()
             self.buttonImage()
-            print("data get")
+            print("api ok")
         }, onError: { (Error) in
             print("fuckkkkkkkk:\(Error)")
         }, onCompleted: {
-            print("api ok")
+            print("data get")
         }, onDisposed: nil
         ).disposed(by: bag)
     }
 
     //text的資料
     func uiText() {
-        let animal = self.animaldata[self.row]
-        self.sex.text = "性別：\(self.animalString(S: animal.animal_sex))"
-        self.colour.text = "花色：\(animal.animal_colour)"
-        self.opendate.text = "入所日期：\(animal.animal_opendate)"
-        self.kind.text = "種類：\(animal.animal_kind)"
-        self.bodytype.text = "體型：\(self.animalString(S: (animal.animal_bodytype)))"
-        self.remark.text = "描述：\(animal.animal_remark)"
-        self.subid.text = "ID：\(animal.animal_subid)"
-        self.sname.text = "收容所名稱：\(animal.shelter_name)"
-        self.saddress.text = "地址：\(animal.shelter_address)"
-        self.stel.text = "電話：\(animal.shelter_tel)"
+        for i in 0...(animaldata.count - 1) {
+            let animal = self.animaldata[i]
+            if animal.animal_subid == ID {
+                self.sex.text = "性別：\(self.animalString(string: animal.animal_sex))"
+                self.colour.text = "花色：\(animal.animal_colour)"
+                self.opendate.text = "入所日期：\(animal.animal_opendate)"
+                self.kind.text = "種類：\(animal.animal_kind)"
+                self.bodytype.text = "體型：\(self.animalString(string: (animal.animal_bodytype)))"
+                self.remark.text = "描述：\(animal.animal_remark)"
+                self.subid.text = "ID：\(animal.animal_subid)"
+                self.sname.text = "收容所名稱：\(animal.shelter_name)"
+                self.saddress.text = "地址：\(animal.shelter_address)"
+                self.stel.text = "電話：\(animal.shelter_tel)"
+                iii = i
+            }
+        }
+        print(iii)
     }
 
     //image的圖片
     func imageGet() {
-        if (self.animaldata == nil) || (self.row == nil) {
-            print("image no~")
-        } else {
-            print("image Get")
-            self.wait.image = nil
-            let animal = self.animaldata[self.row]
-            imageApi.GetImage(url: animal.album_file) { (image) in
-                DispatchQueue.main.async {
-                    self.image.image = UIImage(named: "yuki") } }
-            if animal.album_file != "" {
-                self.imageApi.GetImage(url: animal.album_file) { (image) in
-                    DispatchQueue.main.async {
-                        self.image_lable.text = ""
-                        self.image.image = image
-                        self.image.alpha = 1
+        if (self.animaldata == nil) || (self.ID == nil) { //拿不到data
+            self.image_lable.text = "載入中"
+            self.image.image = UIImage(named: "yuki")
+            self.image.alpha = 0.5
+        } else { //拿到data了
+            if iii == nil {
+                self.image_lable.text = "資料已被刪除"
+                self.image.image = UIImage(named: "yuki")
+                self.image.alpha = 0.5
+            } else {
+                let animal = self.animaldata[iii]
+
+                if animal.album_file == "" {
+                    self.image_lable.text = "無照片"
+                    self.image.image = UIImage(named: "yuki")
+                    self.image.alpha = 0.5
+                } else {
+                    self.imageApi.GetImage(url: animal.album_file) { (image) in
+                        DispatchQueue.main.async {
+                            self.image_lable.text = ""
+                            self.image.image = image
+                            self.image.alpha = 1
+                        }
                     }
                 }
             }
         }
     }
 
-    //資料英文轉中文
-    func animalString(S: String) -> String {
+//資料英文轉中文
+    func animalString(string: String) -> String {
         var out: String!
-        if S == "M" {
+        if string == "M" {
             out = "男生"
-        } else if S == "F" {
+        } else if string == "F" {
             out = "女生"
-        } else if S == "SMALL" {
+        } else if string == "SMALL" {
             out = "小型"
-        } else if S == "MEDIUM" {
+        } else if string == "MEDIUM" {
             out = "中型"
-        } else if S == "BIG" {
+        } else if string == "BIG" {
             out = "大型"
         } else {
-            out = S
+            out = string
         }
         return out
     }
 
-    //判斷是拿哪個資料
+//判斷是拿哪個資料
     func whichData() {
         switch self.topnum {
         case 0:
