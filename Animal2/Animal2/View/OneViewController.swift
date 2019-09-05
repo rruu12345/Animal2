@@ -53,15 +53,15 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == self.TopcollectionView {
             if screenFull.height >= 812 {
-                return CGSize(width: 90, height: 115)
+                return CGSize(width: 90/414*screenFull.width, height: 115/896*screenFull.height)
             } else {
-                return CGSize(width: 72, height: 92)
+                return CGSize(width: 72/375*screenFull.width, height: 92/667*screenFull.height)
             }
         } else {
             if screenFull.height >= 812 {
-                return CGSize(width: 120, height: 200)
+                return CGSize(width: 120/414*screenFull.width, height: 200/896*screenFull.height)
             } else {
-                return CGSize(width: 99, height: 165)
+                return CGSize(width: 99/375*screenFull.width, height: 165/667*screenFull.height)
             }
         }
     }
@@ -87,12 +87,12 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
     //cell離邊的距離
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if collectionView == self.TopcollectionView {
-            return UIEdgeInsets(top: screenFull.height * 75 / 896, left: screenFull.width * 60 / 896, bottom: screenFull.height * 5 / 896, right: screenFull.width * 60 / 896)
+            return UIEdgeInsets(top: 75 / 896 * screenFull.height , left: 60 / 896*screenFull.width, bottom: 5 / 896*screenFull.height, right: 60 / 896*screenFull.width)
         } else {
             if screenFull.height >= 812 {
-                return UIEdgeInsets(top: screenFull.height * 10 / 896, left: screenFull.width * 15 / 896, bottom: screenFull.height * 20 / 896, right: screenFull.width * 15 / 896)
+                return UIEdgeInsets(top:10 / 896*screenFull.height, left: 15 / 896 * screenFull.width, bottom: 20 / 896*screenFull.height, right:15 / 896*screenFull.width)
             } else {
-                return UIEdgeInsets(top: 10, left:15, bottom: 20 , right: 15)
+                return UIEdgeInsets(top: 10/896*screenFull.height, left:15/896*screenFull.width, bottom: 20/896*screenFull.height , right: 15/896*screenFull.width)
             }
         }
     }
@@ -112,14 +112,14 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell { //->4
         if collectionView == self.TopcollectionView { //top
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopCollectionViewCell", for: indexPath) as! TopCollectionViewCell
-            cell.configCellWithModel(top: top, i: indexPath.row)
+            cell.configCellWithModel(top: top, i: indexPath.item)
             return cell
         } else { //bottom
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OneCollectionViewCell", for: indexPath) as! OneCollectionViewCell
             if self.count > 12 { //取到資料
                 whichData()
-                let data = self.animaldata[indexPath.row]
-                cell.configCellWithModel(i: indexPath.row, model: animaldata)
+                let data = self.animaldata[indexPath.item]
+                cell.configCellWithModel(i: indexPath.item, model: animaldata)
                 if data.album_file == "" { //無照片
                     let image = UIImage(named: "yuki")
                     cell.configCellImage(text: "無照片", image: image!, alpha: 0.5)
@@ -139,18 +139,18 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { //點擊
         if collectionView == self.TopcollectionView { //點擊top
-            print("點擊\(indexPath.row)")
-            self.topnum = indexPath.row
+            print("點擊\(indexPath.item)")
+            self.topnum = indexPath.item
             whichData()
             BotcollectionView.reloadData()
         }
         else { //點擊bottom
             self.waiting.alpha = 1
             self.waiting.startAnimating()
-            print("點擊\(indexPath.row + 1)")
+            print("點擊\(indexPath.item + 1)")
             UserDefaults.standard.set(self.topnum, forKey: "topnum")
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                self.performSegue(withIdentifier: "showanimal", sender: self.animaldata[indexPath.row].animal_subid)
+                self.performSegue(withIdentifier: "showanimal", sender: self.animaldata[indexPath.item].animal_subid)
             }
         }
     }
