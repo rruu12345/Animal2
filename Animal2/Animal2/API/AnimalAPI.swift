@@ -37,7 +37,7 @@ class AnimalAPI {
         //閉包前加上weak self 防止循環引計數(realtain cycle)
         //返還的結果result
         provider.request(.getAnimalJson) { [weak self] (result) in
-            //透過mapArray把抓下來的資料套用在定義好的資料模組（AnimalModel）   
+            //透過mapArray把抓下來的資料套用在定義好的資料模組（AnimalModel）   123
             guard let model = try! result.value?.mapArray(AnimalModel.self) else{return}
             guard let `self` = self else { return }
             //model套上protocol
