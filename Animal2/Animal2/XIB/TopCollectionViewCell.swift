@@ -19,11 +19,14 @@ class TopCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        var screen = UIScreen.main.bounds.size
-        // Initialization code
+        let screen = UIScreen.main.bounds.size
+
         if screen.height >= 812{
             topImage.layer.cornerRadius = topImage.frame.height/2
             View.layer.cornerRadius = View.frame.height/2
+        } else if screen.height <= 568 {
+            topImage.layer.cornerRadius = topImage.frame.height/2.9
+            View.layer.cornerRadius = View.frame.height/2.9
         } else{
             topImage.layer.cornerRadius = topImage.frame.height/2.5
             View.layer.cornerRadius = View.frame.height/2.5

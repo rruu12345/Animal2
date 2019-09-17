@@ -8,28 +8,25 @@
 
 import UIKit
 import RxSwift
+import Kingfisher
 
 class TwoViewController: UIViewController {
 
-    var delete : Int!
+    var delete: Int!
     var ID: String!
-    var iii: Int!
-    var topnum: Int!
+    var arrayNum: Int!
+    var topClickNum: Int!
+    var mAnimalData: [AnimalModel]!
     var animaldata: [AnimalModel]!
-    var animaldata2: [AnimalModel]!
     var bag: DisposeBag! = DisposeBag()
-    var imageApi = ImageAPI()
-    var loveArray: [String] = {
-        return UserDefaults.standard.stringArray(forKey: "loveArray") ?? []
+    var favoritesArray: [String] = {
+        return UserDefaults.standard.stringArray(forKey: "favoritesArray") ?? []
     }()
-    var row2: [Int] = {
-        return UserDefaults.standard.array(forKey: "row2") as? [Int] ?? []
+    var favoritesData: [[String]] = {
+        return UserDefaults.standard.object(forKey: "favoritesData") as? [[String]] ?? []
     }()
-    var lovetry: [[String]] = {
-        return UserDefaults.standard.object(forKey: "lovetry") as? [[String]] ?? []
-    }()
-    var lovetry2: [Int] = {
-        return UserDefaults.standard.object(forKey: "lovetry2") as? [Int] ?? []
+    var favoritesIntData: [Int] = {
+        return UserDefaults.standard.object(forKey: "favoritesIntData") as? [Int] ?? []
     }()
     let viewModel: AnimalViewModel = AnimalViewModel()
 
@@ -48,49 +45,49 @@ class TwoViewController: UIViewController {
     @IBOutlet weak var sex: UILabel!
     @IBOutlet weak var favorites: UIButton!
     @IBOutlet weak var waiting: UIActivityIndicatorView!
-    
+
     @IBAction func favorites(_ sender: Any) {
         if waiting.alpha == 1 {
             print("等等啦")
-        } else if iii == nil {
+        } else if arrayNum == nil {
             print("資料被刪除了")
             self.favorites.setImage(UIImage(named: "Favorites"), for: .normal)
         } else {
-            loveArray = ["\(animaldata[iii].album_file)", "\(animaldata[iii].animal_kind)", "\(animaldata[iii].animal_sex)", "\(animaldata[iii].animal_subid)"]
-            UserDefaults.standard.set(loveArray, forKey: "loveArray")
+            favoritesArray = ["\(mAnimalData[arrayNum].album_file)", "\(mAnimalData[arrayNum].animal_kind)", "\(mAnimalData[arrayNum].animal_sex)", "\(mAnimalData[arrayNum].animal_subid)"]
+            UserDefaults.standard.set(favoritesArray, forKey: "favoritesArray")
             print("收藏了喔喔喔")
 
-            if lovetry == [] as! [[String]] {
-                print("no lovetry 先收藏再說")
+            if favoritesData == [] as! [[String]] {
+                print("no favoritesData 先收藏再說")
                 self.favorites.setImage(UIImage(named: "Favorites choose"), for: .normal)
-                lovetry.append(loveArray)
-                lovetry2.append(topnum)
-                UserDefaults.standard.set(lovetry, forKey: "lovetry")
-                UserDefaults.standard.set(lovetry2, forKey: "lovetry2")
+                favoritesData.append(favoritesArray)
+                favoritesIntData.append(topClickNum)
+                UserDefaults.standard.set(favoritesData, forKey: "favoritesData")
+                UserDefaults.standard.set(favoritesIntData, forKey: "favoritesIntData")
             } else {
                 //有data 判斷刪或儲
                 var aaa = 0
-                for i in 0...(lovetry.count - 1) {
-                    if lovetry[i][3].contains(animaldata[iii].animal_subid) {
+                for i in 0...(favoritesData.count - 1) {
+                    if favoritesData[i][3].contains(mAnimalData[arrayNum].animal_subid) {
                         aaa = 1
                         print("刪除唷")
                         self.favorites.setImage(UIImage(named: "Favorites"), for: .normal)
-                        lovetry.remove(at: i)
-                        lovetry2.remove(at: i)
-                        UserDefaults.standard.set(lovetry, forKey: "lovetry")
-                        UserDefaults.standard.set(lovetry2, forKey: "lovetry2")
+                        favoritesData.remove(at: i)
+                        favoritesIntData.remove(at: i)
+                        UserDefaults.standard.set(favoritesData, forKey: "favoritesData")
+                        UserDefaults.standard.set(favoritesIntData, forKey: "favoritesIntData")
                         break
                     }
                 }
                 if aaa == 0 {
                     print("添加唷")
                     self.favorites.setImage(UIImage(named: "Favorites choose"), for: .normal)
-                    lovetry.append(loveArray)
-                    lovetry2.append(topnum)
-                    print(lovetry)
-                    print(lovetry2)
-                    UserDefaults.standard.set(lovetry, forKey: "lovetry")
-                    UserDefaults.standard.set(lovetry2, forKey: "lovetry2")
+                    favoritesData.append(favoritesArray)
+                    favoritesIntData.append(topClickNum)
+                    print(favoritesData)
+                    print(favoritesIntData)
+                    UserDefaults.standard.set(favoritesData, forKey: "favoritesData")
+                    UserDefaults.standard.set(favoritesIntData, forKey: "favoritesIntData")
                 }
             }
         }
@@ -105,33 +102,33 @@ class TwoViewController: UIViewController {
         super.viewDidLoad()
         self.waiting.alpha = 1
         self.waiting.startAnimating()
-        topnum = UserDefaults.standard.integer(forKey: "topnum")
+        topClickNum = UserDefaults.standard.integer(forKey: "topClickNum")
         animalApiRequest()
     }
 
     deinit {
-        UserDefaults.standard.removeObject(forKey: "topnum")
-        print("釋放topnum")
+        UserDefaults.standard.removeObject(forKey: "topClickNum")
+        print("釋放topClickNum")
     }
 
     //判斷愛心的圖片&無資料
     func buttonImage() {
-        if lovetry == [] as! [[String]] {
+        if favoritesData == [] as! [[String]] {
             print("image no data")
             self.waiting.alpha = 0
-        } else if iii == nil {
+        } else if arrayNum == nil {//資料被系統刪除了
             self.waiting.alpha = 0
             delete = UserDefaults.standard.integer(forKey: "delete")
             self.favorites.setImage(UIImage(named: "Favorites"), for: .normal)
-            lovetry.remove(at: delete)
-            lovetry2.remove(at: delete)
-            UserDefaults.standard.set(lovetry, forKey: "lovetry")
-            UserDefaults.standard.set(lovetry2, forKey: "lovetry2")
+            favoritesData.remove(at: delete)
+            favoritesIntData.remove(at: delete)
+            UserDefaults.standard.set(favoritesData, forKey: "favoritesData")
+            UserDefaults.standard.set(favoritesIntData, forKey: "favoritesIntData")
         } else {
             var aaa = 0
             self.waiting.alpha = 0
-            for i in 0...(lovetry.count - 1) {
-                if lovetry[i][3].contains(animaldata[iii].animal_subid) {
+            for i in 0...(favoritesData.count - 1) {
+                if favoritesData[i][3].contains(mAnimalData[arrayNum].animal_subid) {
                     print("已收藏")
                     aaa = 1
                     self.favorites.setImage(UIImage(named: "Favorites choose"), for: .normal)
@@ -149,7 +146,7 @@ class TwoViewController: UIViewController {
         viewModel.requestAnimalData().subscribe(onNext: { [weak self] (result) in
             guard result else { return }
             guard let `self` = self else { return }
-            self.animaldata2 = self.viewModel.All
+            self.animaldata = self.viewModel.All
             self.whichData()
             self.uiText()
             self.imageGet()
@@ -165,8 +162,8 @@ class TwoViewController: UIViewController {
 
     //text的資料
     func uiText() {
-        for i in 0...(animaldata.count - 1) {
-            let animal = self.animaldata[i]
+        for i in 0...(mAnimalData.count - 1) {
+            let animal = self.mAnimalData[i]
             if animal.animal_subid == ID {
                 self.sex.text = "性別：\(self.animalString(string: animal.animal_sex))"
                 self.colour.text = "花色：\(animal.animal_colour)"
@@ -178,37 +175,35 @@ class TwoViewController: UIViewController {
                 self.sname.text = "收容所名稱：\(animal.shelter_name)"
                 self.saddress.text = "地址：\(animal.shelter_address)"
                 self.stel.text = "電話：\(animal.shelter_tel)"
-                iii = i
+                arrayNum = i
             }
         }
-        print(iii)
+        print(arrayNum)
     }
 
     //image的圖片
     func imageGet() {
-        if (self.animaldata == nil) || (self.ID == nil) { //拿不到data
+        if (self.mAnimalData == nil) || (self.ID == nil) { //拿不到data
             self.image_lable.text = "載入中"
             self.image.image = UIImage(named: "yuki")
             self.image.alpha = 0.5
         } else { //拿到data了
-            if iii == nil {
+            if arrayNum == nil {
                 self.image_lable.text = "資料已被刪除"
                 self.image.image = UIImage(named: "yuki")
                 self.image.alpha = 0.5
             } else {
-                let animal = self.animaldata[iii]
+                let animal = self.mAnimalData[arrayNum]
 
                 if animal.album_file == "" {
                     self.image_lable.text = "無照片"
                     self.image.image = UIImage(named: "yuki")
                     self.image.alpha = 0.5
                 } else {
-                    self.imageApi.GetImage(url: animal.album_file) { (image) in
-                        DispatchQueue.main.async {
-                            self.image_lable.text = ""
-                            self.image.image = image
-                            self.image.alpha = 1
-                        }
+                    if let url = URL(string: animal.album_file) {
+                        self.image.kf.setImage(with: url)
+                        self.image_lable.text = ""
+                        self.image.alpha = 1
                     }
                 }
             }
@@ -236,33 +231,33 @@ class TwoViewController: UIViewController {
 
 //判斷是拿哪個資料
     func whichData() {
-        switch self.topnum {
+        switch self.topClickNum {
         case 0:
-            self.animaldata = animaldata2
+            self.mAnimalData = animaldata
             break
         case 1:
-            self.animaldata = viewModel.cat
+            self.mAnimalData = viewModel.cat
             break
         case 2:
-            self.animaldata = viewModel.dog
+            self.mAnimalData = viewModel.dog
             break
         case 3:
-            self.animaldata = viewModel.taipei
+            self.mAnimalData = viewModel.taipei
             break
         case 4:
-            self.animaldata = viewModel.Tainan
+            self.mAnimalData = viewModel.Tainan
             break
         case 5:
-            self.animaldata = viewModel.Yunlin
+            self.mAnimalData = viewModel.Yunlin
             break
         case 6:
-            self.animaldata = viewModel.Kaohsiung
+            self.mAnimalData = viewModel.Kaohsiung
             break
         case 7:
-            self.animaldata = viewModel.another
+            self.mAnimalData = viewModel.another
             break
         default:
-            self.topnum = 0
+            self.topClickNum = 0
             break
         }
     }

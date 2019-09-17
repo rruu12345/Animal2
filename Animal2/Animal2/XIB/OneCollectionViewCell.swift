@@ -23,11 +23,6 @@ class OneCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
-    public func configCellWithModel( i : Int ,model : [AnimalModel]){
-        Lable1.text = "種類：\(model[i].animal_kind)"
-        Lable2.text = "性別：\(animalString(S: model[i].animal_sex))"
-    }
     public func configCellWithModelLove( kind : String ,sex : String){
         Lable1.text = "種類：\(kind)"
         Lable2.text = "性別：\(animalString(S:sex))"

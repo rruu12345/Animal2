@@ -13,6 +13,7 @@ target 'Animal2' do
     pod 'RxCocoa'
     pod 'Moya/RxSwift'
     pod 'Moya-ObjectMapper/RxSwift'
+    pod 'Kingfisher' #圖片Cache套件
 
   target 'Animal2Tests' do
     inherit! :search_paths

@@ -14,11 +14,9 @@ class FavoritesViewController: UIViewController, UICollectionViewDelegate, UICol
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var waiting: UIActivityIndicatorView!
 
-    var imageApi = ImageAPI()
-    var row: Int = 0
-    var loveArray: [String] = []
-    var lovetry: [[String]] = []
-    var lovetry2: [Int] = []
+    var favoritesArray: [String] = []
+    var favoritesData: [[String]] = []
+    var favoritesIntData: [Int] = []
     var screenFull = UIScreen.main.bounds.size
 
     let viewModel: AnimalViewModel = AnimalViewModel()
@@ -32,10 +30,10 @@ class FavoritesViewController: UIViewController, UICollectionViewDelegate, UICol
     override func viewWillAppear(_ animated: Bool) {
         self.waiting.alpha = 0
         self.waiting.stopAnimating()
-        loveArray = UserDefaults.standard.stringArray(forKey: "loveArray") ?? []
-        if loveArray != [] as! [String] {
-            lovetry = UserDefaults.standard.object(forKey: "lovetry") as! [[String]]
-            lovetry2 = UserDefaults.standard.object(forKey: "lovetry2") as! [Int]
+        favoritesArray = UserDefaults.standard.stringArray(forKey: "favoritesArray") ?? []
+        if favoritesArray != [] as! [String] {
+            favoritesData = UserDefaults.standard.object(forKey: "favoritesData") as! [[String]]
+            favoritesIntData = UserDefaults.standard.object(forKey: "favoritesIntData") as! [Int]
             collectionView.reloadData()
         } else {
             print("oops")
@@ -61,8 +59,8 @@ class FavoritesViewController: UIViewController, UICollectionViewDelegate, UICol
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if loveArray != [] as! [String] {
-            return lovetry.count
+        if favoritesArray != [] as! [String] {
+            return favoritesData.count
         } else {
             return 0
         }
@@ -70,15 +68,22 @@ class FavoritesViewController: UIViewController, UICollectionViewDelegate, UICol
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OneCollectionViewCell", for: indexPath) as! OneCollectionViewCell
-        cell.configCellWithModelLove(kind: lovetry[indexPath.item][1], sex: lovetry[indexPath.item][2])
+        cell.configCellWithModelLove(kind: favoritesData[indexPath.item][1], sex: favoritesData[indexPath.item][2])
 
-        if lovetry[indexPath.item][0] == "" { //無照片
+        if favoritesData[indexPath.item][0] == "" { //無照片
             let image = UIImage(named: "yuki")
             cell.configCellImage(text: "無照片", image: image!, alpha: 0.5)
         } else { //有照片
-            self.imageApi.GetImage(url: lovetry[indexPath.item][0]) { (image) in
+            if let url = URL(string: favoritesData[indexPath.item][0]) {
                 DispatchQueue.main.async {
-                    cell.configCellImage(text: "", image: image, alpha: 1)
+                    UIImageView().kf.setImage(with: url, placeholder: UIImage(named: "yuki"), options: nil, progressBlock: nil) { (result) in
+                        switch result {
+                        case .success(let success):
+                            cell.configCellImage(text: "", image: success.image, alpha: 1)
+                        case .failure(_):
+                            break
+                        }
+                    }
                 }
             }
         }
@@ -90,10 +95,10 @@ class FavoritesViewController: UIViewController, UICollectionViewDelegate, UICol
         //點擊圖片
         self.waiting.alpha = 1
         waiting.startAnimating()
-        UserDefaults.standard.set(lovetry2[indexPath.item], forKey: "topnum")
+        UserDefaults.standard.set(favoritesIntData[indexPath.item], forKey: "topClickNum")
         UserDefaults.standard.set(indexPath.item, forKey: "delete")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            self.performSegue(withIdentifier: "showanimal", sender: self.lovetry[indexPath.item][3])
+            self.performSegue(withIdentifier: "showanimal", sender: self.favoritesData[indexPath.item][3])
         }
     }
 
