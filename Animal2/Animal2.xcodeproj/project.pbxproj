@@ -10,6 +10,7 @@
 		16D095342DF5F8C30C3B9F69 /* Pods_Animal2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8478BD25D5082FE2D45A409 /* Pods_Animal2Tests.framework */; };
 		76F67D729AF28C68FEA1E054 /* Pods_Animal2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 268B6CCB697503312CD72E7F /* Pods_Animal2.framework */; };
 		7B6F6467DB260365AF88C689 /* Pods_Animal2UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B36297F93A0A9393D2BEEB7 /* Pods_Animal2UITests.framework */; };
+		FE5BB4622334837C00B16563 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5BB4612334837C00B16563 /* CollectionView.swift */; };
 		FEBA543523176EA800E8EA2F /* OneCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEBA543423176EA800E8EA2F /* OneCollectionViewCell.xib */; };
 		FEBA543723176EE200E8EA2F /* TopCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEBA543623176EE200E8EA2F /* TopCollectionViewCell.xib */; };
 		FEBA543923176F1D00E8EA2F /* OneCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBA543823176F1D00E8EA2F /* OneCollectionViewCell.swift */; };
@@ -57,6 +58,7 @@
 		B28DC89FEEA45C27923225D1 /* Pods-Animal2UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Animal2UITests.debug.xcconfig"; path = "Target Support Files/Pods-Animal2UITests/Pods-Animal2UITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D8478BD25D5082FE2D45A409 /* Pods_Animal2Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Animal2Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF0FD464966AC513C1BCF047 /* Pods-Animal2Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Animal2Tests.release.xcconfig"; path = "Target Support Files/Pods-Animal2Tests/Pods-Animal2Tests.release.xcconfig"; sourceTree = "<group>"; };
+		FE5BB4612334837C00B16563 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		FEBA543423176EA800E8EA2F /* OneCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OneCollectionViewCell.xib; sourceTree = "<group>"; };
 		FEBA543623176EE200E8EA2F /* TopCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopCollectionViewCell.xib; sourceTree = "<group>"; };
 		FEBA543823176F1D00E8EA2F /* OneCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				FEBA54482317A86E00E8EA2F /* OneViewController.swift */,
 				FEBA544A2317A87A00E8EA2F /* TwoViewController.swift */,
 				FEBA544C2317A8B200E8EA2F /* FavoritesViewController.swift */,
+				FE5BB4612334837C00B16563 /* CollectionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 				FEBA544F2317C29300E8EA2F /* AnimalViewModel.swift in Sources */,
 				FEBA54472317A84A00E8EA2F /* AnimalService.swift in Sources */,
 				FEBA54432317A36900E8EA2F /* AnimalModel.swift in Sources */,
+				FE5BB4622334837C00B16563 /* CollectionView.swift in Sources */,
 				FEBA543923176F1D00E8EA2F /* OneCollectionViewCell.swift in Sources */,
 				FEBA544B2317A87A00E8EA2F /* TwoViewController.swift in Sources */,
 				FEBA544D2317A8B200E8EA2F /* FavoritesViewController.swift in Sources */,

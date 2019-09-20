@@ -11,12 +11,13 @@ import RxSwift
 import Kingfisher
 
 class OneViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+    
     @IBOutlet weak var BotcollectionView: UICollectionView!
     @IBOutlet weak var TopcollectionView: UICollectionView!
     @IBOutlet weak var landing: UIImageView!
     @IBOutlet weak var waiting: UIActivityIndicatorView!
 
+    var refreshcontrol: UIRefreshControl!
     var bag: DisposeBag! = DisposeBag()
     var mAnimalData: [AnimalModel]!
     var animaldata: [AnimalModel]!
@@ -39,6 +40,12 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
         BotcollectionView.register(OneCollectionViewCell.nib, forCellWithReuseIdentifier: "OneCollectionViewCell")
         TopcollectionView.register(TopCollectionViewCell.nib, forCellWithReuseIdentifier: "TopCollectionViewCell")
+
+        //下拉更新
+        refreshcontrol = UIRefreshControl()
+        BotcollectionView.addSubview(refreshcontrol)
+        refreshcontrol.addTarget(self, action: #selector(reload), for: UIControl.Event.valueChanged)
+        
         animalApiRequest()
     }
 
@@ -225,6 +232,13 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
         default:
             self.topClickNum = 0
             break
+        }
+    }
+
+    @objc func reload() {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
+            self.BotcollectionView.reloadData()
+            self.refreshcontrol.endRefreshing()
         }
     }
 }
