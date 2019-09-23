@@ -25,7 +25,7 @@
                             <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="t60-MW-ZwK" userLabel="collection View">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59607769690000001" colorSpace="custom" customColorSpace="displayP3"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gkv-sh-11U">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gkv-sh-11U">
                                     <size key="itemSize" width="114" height="125"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -37,6 +37,10 @@
                                         <real key="value" value="0.5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="dataSource" destination="KQm-KS-MGm" id="jSJ-VE-SRR"/>
+                                    <outlet property="delegate" destination="KQm-KS-MGm" id="1vf-aJ-Zmd"/>
+                                </connections>
                             </collectionView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pet2" translatesAutoresizingMaskIntoConstraints="NO" id="iSu-JG-Sno">
                                 <rect key="frame" x="0.0" y="-18" width="375" height="674"/>
@@ -392,32 +396,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wyq-gC-q3x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3078" y="210"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="tVQ-qq-GZ1">
-            <objects>
-                <viewController id="m5Q-i7-5i6" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="GNE-ji-zsL">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tvi-Sy-G3Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="9cf-sn-Nt0">
-            <objects>
-                <viewController id="hQ1-UZ-zB3" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5m8-lG-G2X">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xha-UO-ar3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
     <resources>

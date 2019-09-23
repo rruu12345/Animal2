@@ -85,7 +85,6 @@
                 <outlet property="Lable1" destination="1vV-qf-Sdi" id="3CQ-oC-EsJ"/>
                 <outlet property="Lable2" destination="pAr-J3-r4i" id="eAv-mz-KsW"/>
                 <outlet property="Lable3" destination="peq-XO-za9" id="dKh-J2-N6l"/>
-                <outlet property="View" destination="IK3-qB-5XT" id="GMV-Bh-M5C"/>
             </connections>
             <point key="canvasLocation" x="147.82608695652175" y="87.723214285714278"/>
         </collectionViewCell>

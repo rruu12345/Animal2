@@ -10,10 +10,8 @@
 		16D095342DF5F8C30C3B9F69 /* Pods_Animal2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8478BD25D5082FE2D45A409 /* Pods_Animal2Tests.framework */; };
 		76F67D729AF28C68FEA1E054 /* Pods_Animal2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 268B6CCB697503312CD72E7F /* Pods_Animal2.framework */; };
 		7B6F6467DB260365AF88C689 /* Pods_Animal2UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B36297F93A0A9393D2BEEB7 /* Pods_Animal2UITests.framework */; };
-		FE5BB4662334D68900B16563 /* OneCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE5BB4652334D68900B16563 /* OneCollectionViewCell.xib */; };
 		FE5BB4682334D6AF00B16563 /* TopCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE5BB4672334D6AF00B16563 /* TopCollectionViewCell.xib */; };
 		FE5BB46A2334D6DC00B16563 /* TopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5BB4692334D6DC00B16563 /* TopCollectionViewCell.swift */; };
-		FE5BB46C2334D6EF00B16563 /* OneCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5BB46B2334D6EF00B16563 /* OneCollectionViewCell.swift */; };
 		FEBA543523176EA800E8EA2F /* OneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEBA543423176EA800E8EA2F /* OneCell.xib */; };
 		FEBA543723176EE200E8EA2F /* TopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEBA543623176EE200E8EA2F /* TopCell.xib */; };
 		FEBA543923176F1D00E8EA2F /* OneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBA543823176F1D00E8EA2F /* OneCell.swift */; };
@@ -61,10 +59,8 @@
 		B28DC89FEEA45C27923225D1 /* Pods-Animal2UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Animal2UITests.debug.xcconfig"; path = "Target Support Files/Pods-Animal2UITests/Pods-Animal2UITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D8478BD25D5082FE2D45A409 /* Pods_Animal2Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Animal2Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF0FD464966AC513C1BCF047 /* Pods-Animal2Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Animal2Tests.release.xcconfig"; path = "Target Support Files/Pods-Animal2Tests/Pods-Animal2Tests.release.xcconfig"; sourceTree = "<group>"; };
-		FE5BB4652334D68900B16563 /* OneCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OneCollectionViewCell.xib; sourceTree = "<group>"; };
 		FE5BB4672334D6AF00B16563 /* TopCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopCollectionViewCell.xib; sourceTree = "<group>"; };
 		FE5BB4692334D6DC00B16563 /* TopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCollectionViewCell.swift; sourceTree = "<group>"; };
-		FE5BB46B2334D6EF00B16563 /* OneCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneCollectionViewCell.swift; sourceTree = "<group>"; };
 		FEBA543423176EA800E8EA2F /* OneCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OneCell.xib; sourceTree = "<group>"; };
 		FEBA543623176EE200E8EA2F /* TopCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopCell.xib; sourceTree = "<group>"; };
 		FEBA543823176F1D00E8EA2F /* OneCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneCell.swift; sourceTree = "<group>"; };
@@ -194,8 +190,6 @@
 				FEBA543423176EA800E8EA2F /* OneCell.xib */,
 				FEBA543A23176F3900E8EA2F /* TopCell.swift */,
 				FEBA543623176EE200E8EA2F /* TopCell.xib */,
-				FE5BB46B2334D6EF00B16563 /* OneCollectionViewCell.swift */,
-				FE5BB4652334D68900B16563 /* OneCollectionViewCell.xib */,
 				FE5BB4692334D6DC00B16563 /* TopCollectionViewCell.swift */,
 				FE5BB4672334D6AF00B16563 /* TopCollectionViewCell.xib */,
 			);
@@ -373,7 +367,6 @@
 				FE5BB4682334D6AF00B16563 /* TopCollectionViewCell.xib in Resources */,
 				FEEB19FE23176B0300B30AC0 /* LaunchScreen.storyboard in Resources */,
 				FEEB19FB23176B0300B30AC0 /* Assets.xcassets in Resources */,
-				FE5BB4662334D68900B16563 /* OneCollectionViewCell.xib in Resources */,
 				FEBA543723176EE200E8EA2F /* TopCell.xib in Resources */,
 				FEBA543523176EA800E8EA2F /* OneCell.xib in Resources */,
 			);
@@ -499,7 +492,6 @@
 				FEBA54452317A71400E8EA2F /* ImageAPI.swift in Sources */,
 				FEBA54412317A29700E8EA2F /* AnimalAPI.swift in Sources */,
 				FEEB19F423176B0200B30AC0 /* AppDelegate.swift in Sources */,
-				FE5BB46C2334D6EF00B16563 /* OneCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,16 +9,11 @@
 import UIKit
 
 class OneCell: UICollectionViewCell  {
-
-    
-
-    
     
     @IBOutlet weak var AImage: UIImageView!
     @IBOutlet weak var Lable1: UILabel!
     @IBOutlet weak var Lable2: UILabel!
     @IBOutlet weak var Lable3: UILabel!
-    @IBOutlet weak var View: UIView!
     
     static var nib : UINib{
         return UINib(nibName: "OneCell", bundle: nil)

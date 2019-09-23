@@ -9,8 +9,6 @@
 import UIKit
 
 class TopCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
- 
-    
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -39,15 +37,15 @@ class TopCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate, UIC
                 return CGSize(width: 72 / 375 * screenFull.width, height: 92 / 667 * screenFull.height)
             }
         }
-    
+
     //cell 條目間距 橫向的左右間距，縱向的上下間距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
             return 15
         }
-    
+
     //cell離邊的距離
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-            return UIEdgeInsets(top: 75 / 896 * screenFull.height, left: 60 / 896 * screenFull.width, bottom: 5 / 896 * screenFull.height, right: 60 / 896 * screenFull.width)
+            return UIEdgeInsets(top: 0, left: 60 / 896 * screenFull.width, bottom: 0, right: 60 / 896 * screenFull.width)
         }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

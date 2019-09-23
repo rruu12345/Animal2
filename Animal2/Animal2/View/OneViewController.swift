@@ -38,8 +38,8 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
         self.landing.alpha = 1
 
-        collectionView.register(OneCollectionViewCell.nib, forCellWithReuseIdentifier: "OneCollectionViewCell")
         collectionView.register(TopCollectionViewCell.nib, forCellWithReuseIdentifier: "TopCollectionViewCell")
+        collectionView.register(OneCell.nib, forCellWithReuseIdentifier: "OneCell")
 
         //下拉更新
         refreshcontrol = UIRefreshControl()
@@ -58,65 +58,108 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
     //cell 大小
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        switch indexPath.section {
-        case 0:
-            return CGSize(width: screenFull.width, height: 153 / 667 * screenFull.height)
-        default:
-            return CGSize(width: screenFull.width, height: 550 / 667 * screenFull.height)
+        if indexPath.section == 0 {
+            if screenFull.height >= 812 {
+                return CGSize(width: screenFull.width, height: 120 / 896 * screenFull.height)
+            } else {
+                return CGSize(width: screenFull.width, height: 95 / 667 * screenFull.height)
+            }
+        } else {
+            if screenFull.height >= 812 {
+                return CGSize(width: 120 / 414 * screenFull.width, height: 200 / 896 * screenFull.height)
+            } else {
+                return CGSize(width: 99 / 375 * screenFull.width, height: 165 / 667 * screenFull.height)
+            }
         }
     }
 
     //cell 條目間距 橫向的左右間距，縱向的上下間距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 5
+        if section == 0 {
+            return 0
+        } else {
+            return 5
+        }
 
     }
 
     //cell 條目間距 橫向的上下間距，縱向的左右間距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 5
-
+        if section == 0 {
+            return 0
+        } else {
+            return 5
+        }
     }
 
     //cell離邊的距離
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-
-//        return UIEdgeInsets(top: 10 / 896 * screenFull.height, left: 15 / 896 * screenFull.width, bottom: 20 / 896 * screenFull.height, right: 15 / 896 * screenFull.width)
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-
+        if section == 0 {
+            return UIEdgeInsets(top: 75 / 896 * screenFull.height, left: 60 / 414 * screenFull.width, bottom: 5 / 896 * screenFull.height, right: 60 / 414 * screenFull.width)
+        } else {
+            return UIEdgeInsets(top: 10 / 896 * screenFull.height, left: 15 / 414 * screenFull.width, bottom: 20 / 896 * screenFull.height, right: 15 / 414 * screenFull.width)
+        }
     }
 
+    //兩個section
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
 
+    //section裡的item
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { //->3
-        switch section {
-        case 0:
+        if section == 0 {
             return 1
-        default:
-            return 2
-        } }
-
+        } else {
+            if (self.arrayCount != nil) {
+                self.mCount = self.arrayCount
+            } else {
+                self.mCount = 12
+            }
+            return self.mCount
+        }
+    }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell { //->4
 
-        switch indexPath.section {
-        case 0:
+        if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopCollectionViewCell", for: indexPath) as! TopCollectionViewCell
             return cell
-        default:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OneCollectionViewCell", for: indexPath) as! OneCollectionViewCell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OneCell", for: indexPath) as! OneCell
+            if self.mCount > 12 { //取到資料
+                whichData()
+                let data = self.mAnimalData[indexPath.item]
+                cell.configCellWithModelLove(kind: data.animal_kind, sex: data.animal_sex)
+
+                if data.album_file == "" { //無照片
+                    let image = UIImage(named: "yuki")
+                    cell.configCellImage(text: "無照片", image: image!, alpha: 0.5)
+                } else { //有照片
+                    if let url = URL(string: data.album_file) {
+                        DispatchQueue.main.async {
+                            UIImageView().kf.setImage(with: url, placeholder: UIImage(named: "yuki"), options: nil, progressBlock: nil) { (result) in
+                                switch result {
+                                case .success(let success):
+                                    cell.configCellImage(text: "", image: success.image, alpha: 1)
+                                case .failure(_):
+                                    break
+                                }
+                            }
+                        }
+                    }
+                }
+            } else { //未取到資料
+                cell.Lable3.text = "載入中.." }
             return cell
         }
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { //點擊
-        switch indexPath.section {
-        case 0:
+        if indexPath.section == 0 {
             print("點擊\(indexPath.item + 1)")
             self.topClickNum = indexPath.item
             whichData()
             collectionView.reloadData()
-        default:
+        } else {
             self.waiting.alpha = 1
             self.waiting.startAnimating()
             print("點擊\(indexPath.item + 1)")
