@@ -13,6 +13,7 @@
         <!--小可愛-->
         <scene sceneID="kM9-iR-6wN">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZLZ-IF-kPj" sceneMemberID="firstResponder"/>
                 <viewController id="KQm-KS-MGm" customClass="OneViewController" customModule="Animal2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="q9J-Qb-bEL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -21,58 +22,21 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.25" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pet" translatesAutoresizingMaskIntoConstraints="NO" id="Mzy-kp-yMO" userLabel="background">
                                 <rect key="frame" x="0.0" y="-14.5" width="375" height="667"/>
                             </imageView>
-                            <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="t60-MW-ZwK" userLabel="topCollection View">
-                                <rect key="frame" x="-7" y="-10" width="389" height="153"/>
+                            <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="t60-MW-ZwK" userLabel="collection View">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59607769690000001" colorSpace="custom" customColorSpace="displayP3"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gkv-sh-11U">
-                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="itemSize" width="114" height="125"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TopCollectionViewCell" id="OQ1-dh-yCp" customClass="TopCollectionViewCell" customModule="Animal2" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </view>
-                                    </collectionViewCell>
-                                </cells>
+                                <cells/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                         <real key="value" value="0.5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="dataSource" destination="KQm-KS-MGm" id="k89-VB-jst"/>
-                                    <outlet property="delegate" destination="KQm-KS-MGm" id="fhH-WU-9Fq"/>
-                                </connections>
-                            </collectionView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Gk9-c2-YvV">
-                                <rect key="frame" x="0.0" y="143" width="375" height="549.5"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59610445209999996" colorSpace="custom" customColorSpace="displayP3"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="T4U-Dv-dXE">
-                                    <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="OneCollectionViewCell" id="u0a-zH-5K6" userLabel="BotCollectionViewCell" customClass="OneCollectionViewCell" customModule="Animal2" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </view>
-                                    </collectionViewCell>
-                                </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="KQm-KS-MGm" id="32j-ZF-P9l"/>
-                                    <outlet property="delegate" destination="KQm-KS-MGm" id="jll-8P-Z4d"/>
-                                </connections>
                             </collectionView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pet2" translatesAutoresizingMaskIntoConstraints="NO" id="iSu-JG-Sno">
                                 <rect key="frame" x="0.0" y="-18" width="375" height="674"/>
@@ -94,24 +58,18 @@
                             <constraint firstItem="t60-MW-ZwK" firstAttribute="centerX" secondItem="gy1-mY-1Wl" secondAttribute="centerX" id="6Mu-Fl-3Dn"/>
                             <constraint firstItem="fME-vQ-qVW" firstAttribute="centerY" secondItem="gy1-mY-1Wl" secondAttribute="centerY" id="6Wh-Bu-cos"/>
                             <constraint firstItem="iSu-JG-Sno" firstAttribute="width" secondItem="q9J-Qb-bEL" secondAttribute="width" id="6nv-AX-p0b"/>
-                            <constraint firstItem="Gk9-c2-YvV" firstAttribute="height" secondItem="q9J-Qb-bEL" secondAttribute="height" multiplier="736:896" id="86c-BX-MqA"/>
                             <constraint firstItem="Mzy-kp-yMO" firstAttribute="height" secondItem="q9J-Qb-bEL" secondAttribute="height" id="ARn-Qf-qfP"/>
-                            <constraint firstItem="Gk9-c2-YvV" firstAttribute="top" secondItem="t60-MW-ZwK" secondAttribute="bottom" id="FWP-HR-rty"/>
-                            <constraint firstItem="Gk9-c2-YvV" firstAttribute="height" secondItem="q9J-Qb-bEL" secondAttribute="height" multiplier="468:568" id="JJO-GF-Nri"/>
                             <constraint firstItem="iSu-JG-Sno" firstAttribute="height" secondItem="q9J-Qb-bEL" secondAttribute="height" multiplier="906:896" id="LCD-SN-m9D"/>
-                            <constraint firstItem="Gk9-c2-YvV" firstAttribute="width" secondItem="q9J-Qb-bEL" secondAttribute="width" id="PkA-U4-ce3"/>
-                            <constraint firstItem="t60-MW-ZwK" firstAttribute="width" secondItem="q9J-Qb-bEL" secondAttribute="width" multiplier="389:375" id="RIi-yK-y6r"/>
+                            <constraint firstItem="t60-MW-ZwK" firstAttribute="width" secondItem="q9J-Qb-bEL" secondAttribute="width" id="RIi-yK-y6r"/>
                             <constraint firstItem="Mzy-kp-yMO" firstAttribute="centerX" secondItem="gy1-mY-1Wl" secondAttribute="centerX" id="SCK-3W-Gyv"/>
                             <constraint firstItem="iSu-JG-Sno" firstAttribute="centerY" secondItem="gy1-mY-1Wl" secondAttribute="centerY" id="Yy4-fr-ea5"/>
-                            <constraint firstItem="Gk9-c2-YvV" firstAttribute="centerX" secondItem="gy1-mY-1Wl" secondAttribute="centerX" id="dO6-vK-CdM"/>
                             <constraint firstItem="fME-vQ-qVW" firstAttribute="centerX" secondItem="gy1-mY-1Wl" secondAttribute="centerX" id="fmP-aZ-xJO"/>
                             <constraint firstItem="t60-MW-ZwK" firstAttribute="centerY" secondItem="gy1-mY-1Wl" secondAttribute="centerY" multiplier="160:896" id="i1d-R6-RPa"/>
-                            <constraint firstItem="t60-MW-ZwK" firstAttribute="top" secondItem="q9J-Qb-bEL" secondAttribute="top" constant="-10" id="jJb-km-1Vh"/>
+                            <constraint firstItem="t60-MW-ZwK" firstAttribute="top" secondItem="q9J-Qb-bEL" secondAttribute="top" id="jJb-km-1Vh"/>
                             <constraint firstItem="Mzy-kp-yMO" firstAttribute="width" secondItem="q9J-Qb-bEL" secondAttribute="width" id="kQg-3V-YmQ"/>
                             <constraint firstItem="Mzy-kp-yMO" firstAttribute="centerY" secondItem="gy1-mY-1Wl" secondAttribute="centerY" id="mki-ww-pBz"/>
-                            <constraint firstItem="t60-MW-ZwK" firstAttribute="height" secondItem="q9J-Qb-bEL" secondAttribute="height" multiplier="153:667" id="n2r-tq-bbi"/>
+                            <constraint firstItem="t60-MW-ZwK" firstAttribute="height" secondItem="q9J-Qb-bEL" secondAttribute="height" id="n2r-tq-bbi"/>
                             <constraint firstItem="fME-vQ-qVW" firstAttribute="width" secondItem="q9J-Qb-bEL" secondAttribute="width" multiplier="100:414" id="sfd-lZ-gq6"/>
-                            <constraint firstItem="Gk9-c2-YvV" firstAttribute="centerY" secondItem="gy1-mY-1Wl" secondAttribute="centerY" multiplier="1110:896" id="u5D-pT-Lu2"/>
                             <constraint firstItem="fME-vQ-qVW" firstAttribute="height" secondItem="q9J-Qb-bEL" secondAttribute="height" multiplier="100:896" id="wyS-jz-P8j"/>
                             <constraint firstItem="t60-MW-ZwK" firstAttribute="height" secondItem="q9J-Qb-bEL" secondAttribute="height" multiplier="176:896" id="zwu-69-gK5"/>
                         </constraints>
@@ -119,7 +77,6 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="n2r-tq-bbi"/>
-                                <exclude reference="JJO-GF-Nri"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -127,22 +84,17 @@
                                 <exclude reference="i1d-R6-RPa"/>
                                 <include reference="n2r-tq-bbi"/>
                                 <exclude reference="zwu-69-gK5"/>
-                                <exclude reference="86c-BX-MqA"/>
-                                <include reference="JJO-GF-Nri"/>
-                                <exclude reference="u5D-pT-Lu2"/>
                             </mask>
                         </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="小可愛" image="Pett" id="reN-qD-Fxh"/>
                     <connections>
-                        <outlet property="BotcollectionView" destination="Gk9-c2-YvV" id="gpJ-q6-HP6"/>
-                        <outlet property="TopcollectionView" destination="t60-MW-ZwK" id="dnE-iI-uD5"/>
+                        <outlet property="collectionView" destination="t60-MW-ZwK" id="DWf-dF-cJr"/>
                         <outlet property="landing" destination="iSu-JG-Sno" id="abp-mJ-igW"/>
                         <outlet property="waiting" destination="fME-vQ-qVW" id="xTq-zC-i2r"/>
                         <segue destination="4tG-xG-iZD" kind="presentation" identifier="showanimal" id="CxJ-bf-gld"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZLZ-IF-kPj" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2082.4000000000001" y="-258.62068965517244"/>
         </scene>
@@ -167,7 +119,7 @@
                                     <inset key="sectionInset" minX="15" minY="10" maxX="15" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="OneCollectionViewCell" id="FyS-rE-ojd" userLabel="BotCollectionViewCell" customClass="OneCollectionViewCell" customModule="Animal2" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="OneCollectionViewCell" id="FyS-rE-ojd" userLabel="BotCollectionViewCell" customClass="OneCell" customModule="Animal2" customModuleProvider="target">
                                         <rect key="frame" x="15" y="10" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -420,7 +372,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z37-VH-KrQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1097.1014492753625" y="-256.47321428571428"/>
+            <point key="canvasLocation" x="-1124" y="-259"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="c5j-pQ-Q4T">
@@ -477,6 +429,6 @@
         <image name="yuki" width="100" height="133"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Qyv-Xg-d7t"/>
+        <segue reference="CxJ-bf-gld"/>
     </inferredMetricsTieBreakers>
 </document>

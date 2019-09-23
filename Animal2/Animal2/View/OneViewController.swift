@@ -11,11 +11,11 @@ import RxSwift
 import Kingfisher
 
 class OneViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    @IBOutlet weak var BotcollectionView: UICollectionView!
-    @IBOutlet weak var TopcollectionView: UICollectionView!
+
     @IBOutlet weak var landing: UIImageView!
     @IBOutlet weak var waiting: UIActivityIndicatorView!
+    @IBOutlet weak var collectionView: UICollectionView!
+
 
     var refreshcontrol: UIRefreshControl!
     var bag: DisposeBag! = DisposeBag()
@@ -23,7 +23,6 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
     var animaldata: [AnimalModel]!
     var mCount: Int!
     var arrayCount: Int!
-    var topKindArray: [String] = ["全部", "貓", "狗", "台北", "台南", "雲林", "高雄", "其它"]
     var topClickNum: Int!
     var screenFull = UIScreen.main.bounds.size
     let viewModel: AnimalViewModel = AnimalViewModel()
@@ -34,18 +33,18 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     override func viewDidLoad() { // ->1
         super.viewDidLoad()
-        self.landing.alpha = 1
-        //top下邊線
-        self.TopcollectionView.layer.borderColor = UIColor.lightGray.cgColor
+        collectionView.delegate = self
+        collectionView.dataSource = self
 
-        BotcollectionView.register(OneCollectionViewCell.nib, forCellWithReuseIdentifier: "OneCollectionViewCell")
-        TopcollectionView.register(TopCollectionViewCell.nib, forCellWithReuseIdentifier: "TopCollectionViewCell")
+        self.landing.alpha = 1
+
+        collectionView.register(OneCollectionViewCell.nib, forCellWithReuseIdentifier: "OneCollectionViewCell")
+        collectionView.register(TopCollectionViewCell.nib, forCellWithReuseIdentifier: "TopCollectionViewCell")
 
         //下拉更新
         refreshcontrol = UIRefreshControl()
-        BotcollectionView.addSubview(refreshcontrol)
+        collectionView.addSubview(refreshcontrol)
         refreshcontrol.addTarget(self, action: #selector(reload), for: UIControl.Event.valueChanged)
-        
         animalApiRequest()
     }
 
@@ -53,113 +52,71 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
         whichData()
         self.waiting.stopAnimating()
         self.waiting.alpha = 0
-        BotcollectionView.reloadData()
+        collectionView.reloadData()
     }
 
     //cell 大小
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == self.TopcollectionView {
-            if screenFull.height >= 812 {
-                return CGSize(width: 90 / 414 * screenFull.width, height: 115 / 896 * screenFull.height)
-            } else {
-                return CGSize(width: 72 / 375 * screenFull.width, height: 92 / 667 * screenFull.height)
-            }
-        } else {
-            if screenFull.height >= 812 {
-                return CGSize(width: 120 / 414 * screenFull.width, height: 200 / 896 * screenFull.height)
-            } else {
-                return CGSize(width: 99 / 375 * screenFull.width, height: 165 / 667 * screenFull.height)
-            }
+
+        switch indexPath.section {
+        case 0:
+            return CGSize(width: screenFull.width, height: 153 / 667 * screenFull.height)
+        default:
+            return CGSize(width: screenFull.width, height: 550 / 667 * screenFull.height)
         }
     }
 
     //cell 條目間距 橫向的左右間距，縱向的上下間距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        if collectionView == self.TopcollectionView {
-            return 15
-        } else {
-            return 5
-        }
+        return 5
+
     }
 
     //cell 條目間距 橫向的上下間距，縱向的左右間距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        if collectionView == self.TopcollectionView {
-            return 0
-        } else {
-            return 5
-        }
+        return 5
+
     }
 
     //cell離邊的距離
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        if collectionView == self.TopcollectionView {
-            return UIEdgeInsets(top: 75 / 896 * screenFull.height, left: 60 / 896 * screenFull.width, bottom: 5 / 896 * screenFull.height, right: 60 / 896 * screenFull.width)
-        } else {
-            if screenFull.height >= 812 {
-                return UIEdgeInsets(top: 10 / 896 * screenFull.height, left: 15 / 896 * screenFull.width, bottom: 20 / 896 * screenFull.height, right: 15 / 896 * screenFull.width)
-            } else {
-                return UIEdgeInsets(top: 10 / 896 * screenFull.height, left: 15 / 896 * screenFull.width, bottom: 20 / 896 * screenFull.height, right: 15 / 896 * screenFull.width)
-            }
-        }
+
+//        return UIEdgeInsets(top: 10 / 896 * screenFull.height, left: 15 / 896 * screenFull.width, bottom: 20 / 896 * screenFull.height, right: 15 / 896 * screenFull.width)
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+
+    }
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { //->3
-        if collectionView == self.TopcollectionView {
-            return topKindArray.count
-        } else {
-            if (self.arrayCount != nil) {
-                self.mCount = self.arrayCount
-            } else {
-                self.mCount = 12
-            }
-            return self.mCount }
-    }
+        switch section {
+        case 0:
+            return 1
+        default:
+            return 2
+        } }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell { //->4
-        if collectionView == self.TopcollectionView { //top
+
+        switch indexPath.section {
+        case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopCollectionViewCell", for: indexPath) as! TopCollectionViewCell
-            cell.configCellWithModel(top: topKindArray, i: indexPath.item)
             return cell
-        } else { //bottom
+        default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OneCollectionViewCell", for: indexPath) as! OneCollectionViewCell
-            if self.mCount > 12 { //取到資料
-                whichData()
-                let data = self.mAnimalData[indexPath.item]
-                cell.configCellWithModelLove(kind: data.animal_kind, sex: data.animal_sex)
-
-                if data.album_file == "" { //無照片
-                    let image = UIImage(named: "yuki")
-                    cell.configCellImage(text: "無照片", image: image!, alpha: 0.5)
-                } else { //有照片
-                    if let url = URL(string: data.album_file) {
-                        DispatchQueue.main.async {
-                            UIImageView().kf.setImage(with: url, placeholder: UIImage(named: "yuki"), options: nil, progressBlock: nil) { (result) in
-                                switch result {
-                                case .success(let success):
-                                    cell.configCellImage(text: "", image: success.image, alpha: 1)
-                                case .failure(_):
-                                    break
-                                }
-                            }
-                        }
-                    }
-                }
-            } else { //未取到資料
-                cell.Lable3.text = "載入中.." }
             return cell
-
         }
     }
-
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { //點擊
-        if collectionView == self.TopcollectionView { //點擊top
-            print("點擊\(indexPath.item)")
+        switch indexPath.section {
+        case 0:
+            print("點擊\(indexPath.item + 1)")
             self.topClickNum = indexPath.item
             whichData()
-            BotcollectionView.reloadData()
-        }
-        else { //點擊bottom
+            collectionView.reloadData()
+        default:
             self.waiting.alpha = 1
             self.waiting.startAnimating()
             print("點擊\(indexPath.item + 1)")
@@ -176,23 +133,6 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
         controller.ID = sender as? String
     }
 
-    //取值
-    func animalApiRequest() {
-        viewModel.requestAnimalData().subscribe(onNext: { [weak self] (result) in
-            guard let `self` = self else { return }
-            self.animaldata = self.viewModel.All
-            self.arrayCount = self.animaldata.count
-            print(":pppppppp")
-            DispatchQueue.main.async {
-                self.BotcollectionView.reloadData()
-                self.landing.image = nil
-            }
-        }, onError: { (Error) in
-            print("fuckkkkkkkk:\(Error)")
-        }, onCompleted: {
-            print("yaaaaaaaaa")
-        }, onDisposed: nil).disposed(by: bag)
-    }
 
     //判斷是拿哪個資料
     func whichData() {
@@ -235,9 +175,27 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
         }
     }
 
+    //取值
+    func animalApiRequest() {
+        viewModel.requestAnimalData().subscribe(onNext: { [weak self] (result) in
+            guard let `self` = self else { return }
+            self.animaldata = self.viewModel.All
+            self.arrayCount = self.animaldata.count
+            print(":pppppppp")
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                self.landing.image = nil
+            }
+        }, onError: { (Error) in
+            print("fuckkkkkkkk:\(Error)")
+        }, onCompleted: {
+            print("yaaaaaaaaa")
+        }, onDisposed: nil).disposed(by: bag)
+    }
+
     @objc func reload() {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
-            self.BotcollectionView.reloadData()
+            self.collectionView.reloadData()
             self.refreshcontrol.endRefreshing()
         }
     }

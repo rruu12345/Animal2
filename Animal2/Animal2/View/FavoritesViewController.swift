@@ -23,7 +23,7 @@ class FavoritesViewController: UIViewController, UICollectionViewDelegate, UICol
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.register(OneCollectionViewCell.nib, forCellWithReuseIdentifier: "OneCollectionViewCell")
+        collectionView.register(OneCell.nib, forCellWithReuseIdentifier: "OneCell")
         collectionView.reloadData()
     }
 
@@ -67,7 +67,7 @@ class FavoritesViewController: UIViewController, UICollectionViewDelegate, UICol
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OneCollectionViewCell", for: indexPath) as! OneCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OneCell", for: indexPath) as! OneCell
         cell.configCellWithModelLove(kind: favoritesData[indexPath.item][1], sex: favoritesData[indexPath.item][2])
 
         if favoritesData[indexPath.item][0] == "" { //無照片
