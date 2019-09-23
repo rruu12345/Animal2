@@ -60,9 +60,9 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
         if indexPath.section == 0 {
             if screenFull.height >= 812 {
-                return CGSize(width: screenFull.width, height: 120 / 896 * screenFull.height)
+                return CGSize(width: screenFull.width, height: 150 / 896 * screenFull.height)
             } else {
-                return CGSize(width: screenFull.width, height: 95 / 667 * screenFull.height)
+                return CGSize(width: screenFull.width, height: 125 / 667 * screenFull.height)
             }
         } else {
             if screenFull.height >= 812 {
@@ -95,7 +95,7 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
     //cell離邊的距離
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if section == 0 {
-            return UIEdgeInsets(top: 75 / 896 * screenFull.height, left: 60 / 414 * screenFull.width, bottom: 5 / 896 * screenFull.height, right: 60 / 414 * screenFull.width)
+            return UIEdgeInsets(top: -20, left: 60 / 414 * screenFull.width, bottom: 5 / 896 * screenFull.height, right: 60 / 414 * screenFull.width)
         } else {
             return UIEdgeInsets(top: 10 / 896 * screenFull.height, left: 15 / 414 * screenFull.width, bottom: 20 / 896 * screenFull.height, right: 15 / 414 * screenFull.width)
         }
@@ -123,6 +123,13 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopCollectionViewCell", for: indexPath) as! TopCollectionViewCell
+            cell.delegate = self
+//            cell.didClickHandler = { [weak self] item in
+//                guard let `self` = self else { return }
+//                self.topClickNum = item
+//                self.whichData()
+//                self.collectionView.reloadData()
+//            }
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OneCell", for: indexPath) as! OneCell
@@ -155,10 +162,7 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { //點擊
         if indexPath.section == 0 {
-            print("點擊\(indexPath.item + 1)")
-            self.topClickNum = indexPath.item
-            whichData()
-            collectionView.reloadData()
+
         } else {
             self.waiting.alpha = 1
             self.waiting.startAnimating()
@@ -245,3 +249,11 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
 }
 
 
+extension OneViewController: DidClickHandler {
+
+    func didClickHandler(item: Int) {
+        self.topClickNum = item
+        self.whichData()
+        self.collectionView.reloadData()
+    }
+}
