@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IK3-qB-5XT">
-                        <rect key="frame" x="0.0" y="5" width="90" height="150"/>
+                        <rect key="frame" x="0.0" y="0.0" width="90" height="150"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="yuki" translatesAutoresizingMaskIntoConstraints="NO" id="7rB-13-SXD">
                                 <rect key="frame" x="4" y="6.5" width="82.5" height="105"/>
@@ -76,15 +72,15 @@
                 <constraint firstItem="IK3-qB-5XT" firstAttribute="width" secondItem="ad3-N8-U46" secondAttribute="width" id="BHU-fW-K5v"/>
                 <constraint firstItem="IK3-qB-5XT" firstAttribute="height" secondItem="ad3-N8-U46" secondAttribute="height" id="IMB-15-k3q"/>
                 <constraint firstItem="IK3-qB-5XT" firstAttribute="centerX" secondItem="9sU-GT-FOy" secondAttribute="centerX" id="hrG-dx-IKX"/>
-                <constraint firstItem="IK3-qB-5XT" firstAttribute="centerY" secondItem="9sU-GT-FOy" secondAttribute="centerY" id="ySH-Hn-1tj"/>
+                <constraint firstItem="IK3-qB-5XT" firstAttribute="centerY" secondItem="ad3-N8-U46" secondAttribute="centerY" id="ySH-Hn-1tj"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="9sU-GT-FOy"/>
             <size key="customSize" width="78" height="153"/>
             <connections>
-                <outlet property="AImage" destination="7rB-13-SXD" id="ZUa-Ci-stU"/>
-                <outlet property="Lable1" destination="1vV-qf-Sdi" id="3CQ-oC-EsJ"/>
-                <outlet property="Lable2" destination="pAr-J3-r4i" id="eAv-mz-KsW"/>
-                <outlet property="Lable3" destination="peq-XO-za9" id="dKh-J2-N6l"/>
+                <outlet property="kindlable" destination="1vV-qf-Sdi" id="3CQ-oC-EsJ"/>
+                <outlet property="mImageView" destination="7rB-13-SXD" id="ZUa-Ci-stU"/>
+                <outlet property="sexLable" destination="pAr-J3-r4i" id="eAv-mz-KsW"/>
+                <outlet property="statusLable" destination="peq-XO-za9" id="dKh-J2-N6l"/>
             </connections>
             <point key="canvasLocation" x="147.82608695652175" y="87.723214285714278"/>
         </collectionViewCell>

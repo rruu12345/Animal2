@@ -1,9 +1,8 @@
 //
 //  ShowAnimalViewController.swift
-//  GameAB2
 //
-//  Created by 王一平 on 2019/8/8.
-//  Copyright © 2019 王一平. All rights reserved.
+//  Created by  on 2019/8/8.
+//  Copyright © 2019 . All rights reserved.
 //
 
 import UIKit
@@ -13,11 +12,11 @@ import Kingfisher
 class TwoViewController: UIViewController {
 
     var delete: Int!
-    var ID: String!
+    var idStr: String!
     var arrayNum: Int!
     var topClickNum: Int!
     var mAnimalData: [AnimalModel]!
-    var animaldata: [AnimalModel]!
+    var animalData: [AnimalModel]!
     var bag: DisposeBag! = DisposeBag()
     var favoritesArray: [String] = {
         return UserDefaults.standard.stringArray(forKey: "favoritesArray") ?? []
@@ -116,7 +115,7 @@ class TwoViewController: UIViewController {
         if favoritesData == [] as! [[String]] {
             print("image no data")
             self.waiting.alpha = 0
-        } else if arrayNum == nil {//資料被系統刪除了
+        } else if arrayNum == nil { //資料被系統刪除了
             self.waiting.alpha = 0
             delete = UserDefaults.standard.integer(forKey: "delete")
             self.favorites.setImage(UIImage(named: "Favorites"), for: .normal)
@@ -146,7 +145,7 @@ class TwoViewController: UIViewController {
         viewModel.requestAnimalData().subscribe(onNext: { [weak self] (result) in
             guard result else { return }
             guard let `self` = self else { return }
-            self.animaldata = self.viewModel.All
+            self.animalData = self.viewModel.allData
             self.whichData()
             self.uiText()
             self.imageGet()
@@ -164,7 +163,7 @@ class TwoViewController: UIViewController {
     func uiText() {
         for i in 0...(mAnimalData.count - 1) {
             let animal = self.mAnimalData[i]
-            if animal.animal_subid == ID {
+            if animal.animal_subid == idStr {
                 self.sex.text = "性別：\(self.animalString(string: animal.animal_sex))"
                 self.colour.text = "花色：\(animal.animal_colour)"
                 self.opendate.text = "入所日期：\(animal.animal_opendate)"
@@ -178,12 +177,11 @@ class TwoViewController: UIViewController {
                 arrayNum = i
             }
         }
-        print(arrayNum)
     }
 
     //image的圖片
     func imageGet() {
-        if (self.mAnimalData == nil) || (self.ID == nil) { //拿不到data
+        if (self.mAnimalData == nil) || (self.idStr == nil) { //拿不到data
             self.image_lable.text = "載入中"
             self.image.image = UIImage(named: "yuki")
             self.image.alpha = 0.5
@@ -233,7 +231,7 @@ class TwoViewController: UIViewController {
     func whichData() {
         switch self.topClickNum {
         case 0:
-            self.mAnimalData = animaldata
+            self.mAnimalData = animalData
             break
         case 1:
             self.mAnimalData = viewModel.cat
@@ -245,13 +243,13 @@ class TwoViewController: UIViewController {
             self.mAnimalData = viewModel.taipei
             break
         case 4:
-            self.mAnimalData = viewModel.Tainan
+            self.mAnimalData = viewModel.tainan
             break
         case 5:
-            self.mAnimalData = viewModel.Yunlin
+            self.mAnimalData = viewModel.taichung
             break
         case 6:
-            self.mAnimalData = viewModel.Kaohsiung
+            self.mAnimalData = viewModel.kaohsiung
             break
         case 7:
             self.mAnimalData = viewModel.another

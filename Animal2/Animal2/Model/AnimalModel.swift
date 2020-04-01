@@ -2,8 +2,8 @@
 //  AnimalModel.swift
 //  Animal2
 //
-//  Created by 王一平 on 2019/8/29.
-//  Copyright © 2019 王一平. All rights reserved.
+//  Created by  on 2019/8/29.
+//  Copyright © 2019 . All rights reserved.
 //
 
 import UIKit
@@ -40,13 +40,12 @@ class AnimalModel: Mappable {
     var shelter_address : String = ""
     var shelter_tel : String = ""
     
-    //在對象序列化前驗證JSON合法性?
+    //在對象序列化前驗證JSON合法性? 不確定功能？
     required init?(map: Map) {
 
     }
     
     //Mappable解析json用
-    //required init 不確定功能？
     //mapping 把定義好的變數透過映射的方式給值，  自定義變數 <- map["參數key"]
     func mapping(map: Map) {
         animal_subid <- map["animal_subid"]

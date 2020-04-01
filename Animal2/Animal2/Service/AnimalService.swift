@@ -2,8 +2,8 @@
 //  AnimalService.swift
 //  Animal2
 //
-//  Created by 王一平 on 2019/8/29.
-//  Copyright © 2019 王一平. All rights reserved.
+//  Created by  on 2019/8/29.
+//  Copyright © 2019 . All rights reserved.
 //
 
 import UIKit
@@ -20,7 +20,7 @@ extension AnimalService : TargetType{
     var baseURL: URL  {
         switch self {
         case .getAnimalJson:
-            return URL(string: "http://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL")!
+            return URL(string: "https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL")!
         }
     }
    

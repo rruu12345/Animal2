@@ -2,26 +2,25 @@
 //  TopCollectionViewCell.swift
 //  Animal2
 //
-//  Created by 王一平 on 2019/9/20.
-//  Copyright © 2019 王一平. All rights reserved.
+//  Created by on 2019/9/20.
+//  Copyright © 2019. All rights reserved.
 //
 
 import UIKit
 
 protocol DidClickHandler: AnyObject {
-    func didClickHandler(item:Int)
+    func didClickHandler(item: Int)
 }
-
 
 class TopCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
 
     @IBOutlet weak var collectionView: UICollectionView!
 
-    var topKindArray: [String] = ["全部", "貓", "狗", "台北", "台南", "雲林", "高雄", "其它"]
+    var topKindArray: [String] = ["全部", "貓", "狗", "台北", "台南", "臺中", "高雄", "其它"]
     var screenFull = UIScreen.main.bounds.size
 //    var didClickHandler: ((Int) -> ()) = { item in }
-    var delegate:DidClickHandler?
+    var delegate: DidClickHandler?
 
 
     static var nib: UINib {

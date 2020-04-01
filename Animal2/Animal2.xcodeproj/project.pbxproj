@@ -19,7 +19,6 @@
 		FEBA543F2317747200E8EA2F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEBA543E2317747200E8EA2F /* Main.storyboard */; };
 		FEBA54412317A29700E8EA2F /* AnimalAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBA54402317A29700E8EA2F /* AnimalAPI.swift */; };
 		FEBA54432317A36900E8EA2F /* AnimalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBA54422317A36900E8EA2F /* AnimalModel.swift */; };
-		FEBA54452317A71400E8EA2F /* ImageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBA54442317A71400E8EA2F /* ImageAPI.swift */; };
 		FEBA54472317A84A00E8EA2F /* AnimalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBA54462317A84A00E8EA2F /* AnimalService.swift */; };
 		FEBA54492317A86E00E8EA2F /* OneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBA54482317A86E00E8EA2F /* OneViewController.swift */; };
 		FEBA544B2317A87A00E8EA2F /* TwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBA544A2317A87A00E8EA2F /* TwoViewController.swift */; };
@@ -68,7 +67,6 @@
 		FEBA543E2317747200E8EA2F /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		FEBA54402317A29700E8EA2F /* AnimalAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalAPI.swift; sourceTree = "<group>"; };
 		FEBA54422317A36900E8EA2F /* AnimalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalModel.swift; sourceTree = "<group>"; };
-		FEBA54442317A71400E8EA2F /* ImageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPI.swift; sourceTree = "<group>"; };
 		FEBA54462317A84A00E8EA2F /* AnimalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalService.swift; sourceTree = "<group>"; };
 		FEBA54482317A86E00E8EA2F /* OneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneViewController.swift; sourceTree = "<group>"; };
 		FEBA544A2317A87A00E8EA2F /* TwoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoViewController.swift; sourceTree = "<group>"; };
@@ -168,22 +166,11 @@
 			isa = PBXGroup;
 			children = (
 				FEBA54402317A29700E8EA2F /* AnimalAPI.swift */,
-				FEBA54442317A71400E8EA2F /* ImageAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
 		};
 		FEBA543323176E2900E8EA2F /* View */ = {
-			isa = PBXGroup;
-			children = (
-				FEBA54482317A86E00E8EA2F /* OneViewController.swift */,
-				FEBA544A2317A87A00E8EA2F /* TwoViewController.swift */,
-				FEBA544C2317A8B200E8EA2F /* FavoritesViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		FEBA543D231773AC00E8EA2F /* XIB */ = {
 			isa = PBXGroup;
 			children = (
 				FEBA543823176F1D00E8EA2F /* OneCell.swift */,
@@ -192,8 +179,19 @@
 				FEBA543623176EE200E8EA2F /* TopCell.xib */,
 				FE5BB4692334D6DC00B16563 /* TopCollectionViewCell.swift */,
 				FE5BB4672334D6AF00B16563 /* TopCollectionViewCell.xib */,
+				FEBA543E2317747200E8EA2F /* Main.storyboard */,
 			);
-			path = XIB;
+			path = View;
+			sourceTree = "<group>";
+		};
+		FEC2C458243432FD00632815 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FEBA54482317A86E00E8EA2F /* OneViewController.swift */,
+				FEBA544A2317A87A00E8EA2F /* TwoViewController.swift */,
+				FEBA544C2317A8B200E8EA2F /* FavoritesViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		FEEB19E723176B0200B30AC0 = {
@@ -221,17 +219,16 @@
 		FEEB19F223176B0200B30AC0 /* Animal2 */ = {
 			isa = PBXGroup;
 			children = (
+				FEC2C458243432FD00632815 /* ViewController */,
 				FEBA543023176DC900E8EA2F /* Service */,
 				FEBA542E23176DB200E8EA2F /* Model */,
 				FEBA543223176DEF00E8EA2F /* API */,
 				FEBA543123176DDA00E8EA2F /* ViewModel */,
 				FEBA543323176E2900E8EA2F /* View */,
-				FEBA543D231773AC00E8EA2F /* XIB */,
 				FEEB19F323176B0200B30AC0 /* AppDelegate.swift */,
-				FEBA543E2317747200E8EA2F /* Main.storyboard */,
 				FEEB19F523176B0200B30AC0 /* ViewController.swift */,
-				FEEB19FA23176B0300B30AC0 /* Assets.xcassets */,
 				FEEB19FC23176B0300B30AC0 /* LaunchScreen.storyboard */,
+				FEEB19FA23176B0300B30AC0 /* Assets.xcassets */,
 				FEEB19FF23176B0300B30AC0 /* Info.plist */,
 			);
 			path = Animal2;
@@ -489,7 +486,6 @@
 				FEBA544B2317A87A00E8EA2F /* TwoViewController.swift in Sources */,
 				FEBA544D2317A8B200E8EA2F /* FavoritesViewController.swift in Sources */,
 				FEEB19F623176B0200B30AC0 /* ViewController.swift in Sources */,
-				FEBA54452317A71400E8EA2F /* ImageAPI.swift in Sources */,
 				FEBA54412317A29700E8EA2F /* AnimalAPI.swift in Sources */,
 				FEEB19F423176B0200B30AC0 /* AppDelegate.swift in Sources */,
 			);
@@ -659,17 +655,19 @@
 			baseConfigurationReference = 22B4AFB61262DDDEEF54FADF /* Pods-Animal2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J86D5LTY88;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = K3VK8622HR;
 				INFOPLIST_FILE = Animal2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "-.Animal2";
+				PRODUCT_BUNDLE_IDENTIFIER = com.appteam.atubevideoplayer1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = atubevideoplayer1_dev;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -678,17 +676,19 @@
 			baseConfigurationReference = FFEC1392CF5691B5F05FBA17 /* Pods-Animal2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J86D5LTY88;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = K3VK8622HR;
 				INFOPLIST_FILE = Animal2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "-.Animal2";
+				PRODUCT_BUNDLE_IDENTIFIER = com.appteam.atubevideoplayer1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = atubevideoplayer1_dev;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

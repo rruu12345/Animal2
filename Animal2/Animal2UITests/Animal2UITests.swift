@@ -2,8 +2,8 @@
 //  Animal2UITests.swift
 //  Animal2UITests
 //
-//  Created by 王一平 on 2019/8/29.
-//  Copyright © 2019 王一平. All rights reserved.
+//  Created by on 2019/8/29.
+//  Copyright © 2019. All rights reserved.
 //
 
 import XCTest
