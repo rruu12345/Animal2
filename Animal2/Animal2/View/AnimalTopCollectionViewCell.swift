@@ -1,5 +1,5 @@
 //
-//  TopCollectionViewCell.swift
+//  AnimalTopCollectionViewCell.swift
 //  Animal2
 //
 //  Created by on 2019/9/20.
@@ -12,19 +12,16 @@ protocol DidClickHandler: AnyObject {
     func didClickHandler(item: Int)
 }
 
-class TopCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+class AnimalTopCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
 
-    var topKindArray: [String] = ["全部", "貓", "狗", "台北", "台南", "臺中", "高雄", "其它"]
-    var screenFull = UIScreen.main.bounds.size
-//    var didClickHandler: ((Int) -> ()) = { item in }
-    var delegate: DidClickHandler?
-
+    private let screenFull = UIScreen.main.bounds.size
+    private var topKindArray: [String] = ["全部", "貓", "狗", "台北", "台南", "台中", "高雄", "其它"]
+    internal var delegate: DidClickHandler?
 
     static var nib: UINib {
-        return UINib(nibName: "TopCollectionViewCell", bundle: Bundle(for: self))
+        return UINib(nibName: "AnimalTopCollectionViewCell", bundle: Bundle(for: self))
     }
 
     override func awakeFromNib() {
@@ -32,25 +29,24 @@ class TopCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate, UIC
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(TopCell.nib, forCellWithReuseIdentifier: "TopCell")
-        //top下邊線
-        collectionView.layer.borderColor = UIColor(red: 77 / 255, green: 77 / 255, blue: 77 / 255, alpha: 0.3).cgColor
+        collectionView.layer.shadowColor = UIColor.black.cgColor
+        collectionView.layer.shadowOffset = CGSize(width: 0, height: 3)
+        collectionView.layer.shadowRadius = 3
+        collectionView.layer.shadowOpacity = 0.3
+        collectionView.layer.masksToBounds = false
     }
+}
 
-    //cell 大小
+extension AnimalTopCollectionViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if screenFull.height >= 812 {
-            return CGSize(width: 90 / 414 * screenFull.width, height: 115 / 896 * screenFull.height)
-        } else {
-            return CGSize(width: 72 / 375 * screenFull.width, height: 92 / 667 * screenFull.height)
-        }
+        return CGSize(width: 72 / 375 * screenFull.width, height: 92 / 667 * screenFull.height)
     }
 
-    //cell 條目間距 橫向的左右間距，縱向的上下間距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 15
     }
 
-    //cell離邊的距離
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 20, left: 60 / 896 * screenFull.width, bottom: 0, right: 60 / 896 * screenFull.width)
     }
@@ -61,13 +57,11 @@ class TopCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate, UIC
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopCell", for: indexPath) as! TopCell
-        cell.configCellWithModel(top: topKindArray, i: indexPath.item)
+        cell.configCellWithModel(imageStr: topKindArray[indexPath.item])
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { //點擊
-        print("點擊\(indexPath.item + 1)")
-//        didClickHandler(indexPath.item)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.didClickHandler(item: indexPath.item)
     }
 }

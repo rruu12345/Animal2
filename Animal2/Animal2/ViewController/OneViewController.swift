@@ -10,20 +10,19 @@ import UIKit
 import RxSwift
 import Kingfisher
 
-class OneViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class OneViewController: UIViewController {
 
-    @IBOutlet weak var landing: UIImageView!
+    @IBOutlet weak var landingImg: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
 
-    var refreshControl: UIRefreshControl!
-    var bag: DisposeBag! = DisposeBag()
-    var mAnimalData: [AnimalModel]!
-    var animaldata: [AnimalModel]!
-    var mCount: Int!
-    var arrayCount: Int!
-    var topClickNum: Int!
-    var screenFull = UIScreen.main.bounds.size
-    let viewModel: AnimalViewModel = AnimalViewModel()
+    internal var mAnimalData: [AnimalModel]!
+    private var animalData: [AnimalModel]!
+    private var refreshControl: UIRefreshControl!
+    private var arrayCount: Int = 0
+    private var topClickNum: Int = 0
+    private var bag: DisposeBag! = DisposeBag()
+    private var screenFull = UIScreen.main.bounds.size
+    private let viewModel: AnimalViewModel = AnimalViewModel()
 
     deinit {
         bag = nil
@@ -33,16 +32,15 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-
-        self.landing.alpha = 1
-
-        collectionView.register(TopCollectionViewCell.nib, forCellWithReuseIdentifier: "TopCollectionViewCell")
+        collectionView.register(AnimalTopCollectionViewCell.nib, forCellWithReuseIdentifier: "AnimalTopCollectionViewCell")
         collectionView.register(OneCell.nib, forCellWithReuseIdentifier: "OneCell")
+
+        tabBarController?.tabBar.isHidden = true
 
         //下拉更新
         refreshControl = UIRefreshControl()
         collectionView.addSubview(refreshControl)
-        refreshControl.addTarget(self, action: #selector(reload), for: UIControl.Event.valueChanged)
+        refreshControl.addTarget(self, action: #selector(animalApiRequest), for: UIControl.Event.valueChanged)
         animalApiRequest()
     }
 
@@ -51,65 +49,78 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
         collectionView.reloadData()
     }
 
-    //cell 大小
+    /// 判斷是拿哪個資料
+    private func whichData() {
+        let dataArray = [animalData, viewModel.cat, viewModel.dog, viewModel.taipei, viewModel.tainan, viewModel.taichung, viewModel.kaohsiung, viewModel.another]
+        mAnimalData = dataArray[topClickNum]
+        arrayCount = mAnimalData != nil ? mAnimalData.count : 0
+    }
+
+    /// 取值
+    @objc private func animalApiRequest() {
+        viewModel.requestAnimalData().subscribe(onNext: { [weak self] (result) in
+            guard let `self` = self else { return }
+            self.animalData = self.viewModel.allData.value
+            self.arrayCount = self.animalData.count
+            self.whichData()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                self.landingImg.isHidden = true
+                self.tabBarController?.tabBar.isHidden = false
+            }
+            self.refreshControl.endRefreshing()
+        }, onError: { (Error) in
+            print("fuckkkkkkkk:\(Error)")
+        }, onCompleted: {
+            print("yaaaaaaaaa")
+        }, onDisposed: nil).disposed(by: bag)
+    }
+}
+
+extension OneViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == 0 {
-            return screenFull.height >= 812 ? CGSize(width: screenFull.width, height: 150 / 896 * screenFull.height) : CGSize(width: screenFull.width, height: 125 / 667 * screenFull.height)
+            return screenFull.height >= 812 ? CGSize(width: screenFull.width, height: 125 / 896 * screenFull.height) : CGSize(width: screenFull.width, height: 125 / 667 * screenFull.height)
         } else {
             return screenFull.height >= 812 ? CGSize(width: 120 / 414 * screenFull.width, height: 200 / 896 * screenFull.height) : CGSize(width: 99 / 375 * screenFull.width, height: 165 / 667 * screenFull.height)
         }
     }
 
-    //cell 條目間距 橫向的左右間距，縱向的上下間距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return section == 0 ? 0 : 5
     }
 
-    //cell 條目間距 橫向的上下間距，縱向的左右間距
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return section == 0 ? 0 : 5
     }
 
-    //cell離邊的距離
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return section == 0 ? UIEdgeInsets(top: -20, left: 60 / 414 * screenFull.width, bottom: 5 / 896 * screenFull.height, right: 60 / 414 * screenFull.width) : UIEdgeInsets(top: 10 / 896 * screenFull.height, left: 15 / 414 * screenFull.width, bottom: 20 / 896 * screenFull.height, right: 15 / 414 * screenFull.width)
+        return section == 0 ? UIEdgeInsets(top: 0, left: 60 / 414 * screenFull.width, bottom: 5 / 896 * screenFull.height, right: 60 / 414 * screenFull.width) : UIEdgeInsets(top: 10 / 896 * screenFull.height, left: 15 / 414 * screenFull.width, bottom: 70 / 896 * screenFull.height, right: 15 / 414 * screenFull.width)
     }
 
-    //兩個section
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
 
-    //section裡的item
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { //->3
         if section == 0 {
             return 1
         } else {
-            if (self.arrayCount != nil) {
-                self.mCount = self.arrayCount
-            } else {
-                self.mCount = 12
-            }
-            return self.mCount
+            return arrayCount != 0 ? arrayCount : 12
         }
     }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell { //->4
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         if indexPath.section == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopCollectionViewCell", for: indexPath) as! TopCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AnimalTopCollectionViewCell", for: indexPath) as! AnimalTopCollectionViewCell
             cell.delegate = self
-//            cell.didClickHandler = { [weak self] item in
-//                guard let `self` = self else { return }
-//                self.topClickNum = item
-//                self.whichData()
-//                self.collectionView.reloadData()
-//            }
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OneCell", for: indexPath) as! OneCell
-            if self.mCount > 12 { //取到資料
-                whichData()
-                let data = self.mAnimalData[indexPath.item]
+            if arrayCount > 12 { //取到資料
+                let data = mAnimalData[indexPath.item]
                 cell.configCellWithModelLove(kind: data.animal_kind, sex: data.animal_sex)
 
                 if data.album_file == "" { //無照片
@@ -134,98 +145,22 @@ class OneViewController: UIViewController, UICollectionViewDelegate, UICollectio
             return cell
         }
     }
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { //點擊
-        if indexPath.section == 0 {
-
-        } else {
-            print("點擊\(indexPath.item + 1)")
-            UserDefaults.standard.set(self.topClickNum, forKey: "topClickNum")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                self.performSegue(withIdentifier: "showanimal", sender: self.mAnimalData[indexPath.item].animal_subid)
-            }
-        }
-    }
-
-    //傳row值給下一頁
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let controller = segue.destination as! TwoViewController
-        controller.idStr = sender as? String
-    }
-
-
-    //判斷是拿哪個資料
-    func whichData() {
-        switch self.topClickNum {
-        case 0:
-            self.mAnimalData = self.animaldata
-            self.arrayCount = self.mAnimalData.count
-            break
-        case 1:
-            self.mAnimalData = viewModel.cat
-            self.arrayCount = self.mAnimalData.count
-            break
-        case 2:
-            self.mAnimalData = viewModel.dog
-            self.arrayCount = self.mAnimalData.count
-            break
-        case 3:
-            self.mAnimalData = viewModel.taipei
-            self.arrayCount = self.mAnimalData.count
-            break
-        case 4:
-            self.mAnimalData = viewModel.tainan
-            self.arrayCount = self.mAnimalData.count
-            break
-        case 5:
-            self.mAnimalData = viewModel.taichung
-            self.arrayCount = self.mAnimalData.count
-            break
-        case 6:
-            self.mAnimalData = viewModel.kaohsiung
-            self.arrayCount = self.mAnimalData.count
-            break
-        case 7:
-            self.mAnimalData = viewModel.another
-            self.arrayCount = self.mAnimalData.count
-            break
-        default:
-            self.topClickNum = 0
-            break
-        }
-    }
-
-    //取值
-    func animalApiRequest() {
-        viewModel.requestAnimalData().subscribe(onNext: { [weak self] (result) in
-            guard let `self` = self else { return }
-            self.animaldata = self.viewModel.allData
-            self.arrayCount = self.animaldata.count
-            print(":pppppppp")
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-                self.landing.image = nil
-            }
-        }, onError: { (Error) in
-            print("fuckkkkkkkk:\(Error)")
-        }, onCompleted: {
-            print("yaaaaaaaaa")
-        }, onDisposed: nil).disposed(by: bag)
-    }
-
-    @objc func reload() {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
-            self.collectionView.reloadData()
-            self.refreshControl.endRefreshing()
+        if indexPath.section == 1 {
+            let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TwoViewController") as! TwoViewController
+            vc.idStr = self.mAnimalData[indexPath.item].animal_subid
+            vc.topClickNum = topClickNum
+            vc.mAnimalData = mAnimalData
+            self.present(vc, animated: true, completion: nil)
         }
     }
 }
 
-
 extension OneViewController: DidClickHandler {
-
     func didClickHandler(item: Int) {
-        self.topClickNum = item
-        self.whichData()
-        self.collectionView.reloadData()
+        topClickNum = item
+        whichData()
+        collectionView.reloadData()
     }
 }

@@ -1,5 +1,5 @@
 //
-//  OneCollectionViewCell.swift
+//  OneCell.swift
 //  Animal
 //
 //  Created by  on 2019/8/12.
@@ -11,7 +11,7 @@ import UIKit
 class OneCell: UICollectionViewCell {
 
     @IBOutlet weak var mImageView: UIImageView!
-    @IBOutlet weak var kindlable: UILabel!
+    @IBOutlet weak var kindLable: UILabel!
     @IBOutlet weak var sexLable: UILabel!
     @IBOutlet weak var statusLable: UILabel!
 
@@ -22,24 +22,27 @@ class OneCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+
     public func configCellWithModelLove(kind: String, sex: String) {
-        kindlable.text = "種類：\(kind)"
-        sexLable.text = "性別：\(animalString(Str: sex))"
+        kindLable.text = "種類：\(kind)"
+        sexLable.text = "性別：\(animalString(str: sex))"
     }
-    public func configCellImage(text: String, image: UIImage, alpha: Float) {
-        statusLable.text = "\(text)"
+
+    public func configCellImage(text: String, image: UIImage, alpha: CGFloat) {
+        statusLable.text = text
         mImageView.image = image
-        mImageView.alpha = CGFloat(alpha)
+        mImageView.alpha = alpha
     }
-    func animalString(Str: String) -> String {
-        var out: String?
-        if Str == "M" {
+
+    private func animalString(str: String) -> String {
+        var out: String
+        if str == "M" {
             out = "男生"
-        } else if Str == "F" {
+        } else if str == "F" {
             out = "女生"
         } else {
             out = "不明"
         }
-        return out!
+        return out
     }
 }

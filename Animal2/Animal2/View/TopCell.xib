@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -24,6 +26,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.4392995307" green="1" blue="0.7540227182" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstAttribute="width" secondItem="cV1-bO-k2H" secondAttribute="height" multiplier="1:1" id="POQ-95-QTu"/>
                             <constraint firstItem="vKb-Wy-CTo" firstAttribute="centerX" secondItem="cV1-bO-k2H" secondAttribute="centerX" id="Wog-Wl-LrU"/>
                             <constraint firstItem="vKb-Wy-CTo" firstAttribute="centerY" secondItem="cV1-bO-k2H" secondAttribute="centerY" id="a1H-xx-NU7"/>
                             <constraint firstItem="vKb-Wy-CTo" firstAttribute="width" secondItem="cV1-bO-k2H" secondAttribute="width" multiplier="70:72" id="gpP-39-fJg"/>
@@ -31,7 +34,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地區" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUm-GO-bMH">
-                        <rect key="frame" x="0.0" y="90" width="90" height="25"/>
+                        <rect key="frame" x="0.0" y="92" width="90" height="23"/>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -40,13 +43,12 @@
             </view>
             <constraints>
                 <constraint firstItem="YUm-GO-bMH" firstAttribute="centerX" secondItem="B6L-3l-AOh" secondAttribute="centerX" id="7N5-WS-qE9"/>
-                <constraint firstAttribute="bottom" secondItem="YUm-GO-bMH" secondAttribute="bottom" id="Ava-5g-PYu"/>
                 <constraint firstItem="YUm-GO-bMH" firstAttribute="width" secondItem="g6H-5c-xKM" secondAttribute="width" id="EsV-LO-Q1i"/>
                 <constraint firstItem="cV1-bO-k2H" firstAttribute="centerX" secondItem="B6L-3l-AOh" secondAttribute="centerX" id="K5o-fH-3T7"/>
+                <constraint firstItem="YUm-GO-bMH" firstAttribute="top" secondItem="cV1-bO-k2H" secondAttribute="bottom" constant="2" id="Typ-CX-WpE"/>
                 <constraint firstItem="cV1-bO-k2H" firstAttribute="width" secondItem="g6H-5c-xKM" secondAttribute="width" id="bdT-ce-6Mg"/>
                 <constraint firstItem="cV1-bO-k2H" firstAttribute="top" secondItem="g6H-5c-xKM" secondAttribute="top" id="hfY-Dn-Y11"/>
-                <constraint firstItem="cV1-bO-k2H" firstAttribute="height" secondItem="g6H-5c-xKM" secondAttribute="height" multiplier="72:92" id="kZv-w1-X1W"/>
-                <constraint firstItem="YUm-GO-bMH" firstAttribute="height" secondItem="g6H-5c-xKM" secondAttribute="height" multiplier="25:115" id="zfD-7U-dMZ"/>
+                <constraint firstItem="YUm-GO-bMH" firstAttribute="height" secondItem="g6H-5c-xKM" secondAttribute="height" multiplier="23:115" id="zfD-7U-dMZ"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="B6L-3l-AOh"/>
             <size key="customSize" width="103" height="133"/>
