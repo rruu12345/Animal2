@@ -25,8 +25,10 @@
 		FEBA544D2317A8B200E8EA2F /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBA544C2317A8B200E8EA2F /* FavoritesViewController.swift */; };
 		FEBA544F2317C29300E8EA2F /* AnimalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBA544E2317C29300E8EA2F /* AnimalViewModel.swift */; };
 		FEC2C45C24349BBF00632815 /* TwoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC2C45B24349BBF00632815 /* TwoView.swift */; };
+		FECEA6D72480ACB60022FE05 /* ObservableType+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECEA6D42480ACB60022FE05 /* ObservableType+ObjectMapper.swift */; };
+		FECEA6D82480ACB60022FE05 /* Single+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECEA6D52480ACB60022FE05 /* Single+ObjectMapper.swift */; };
+		FECEA6D92480ACB60022FE05 /* Response+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECEA6D62480ACB60022FE05 /* Response+ObjectMapper.swift */; };
 		FEEB19F423176B0200B30AC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB19F323176B0200B30AC0 /* AppDelegate.swift */; };
-		FEEB19F623176B0200B30AC0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB19F523176B0200B30AC0 /* ViewController.swift */; };
 		FEEB19FB23176B0300B30AC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEEB19FA23176B0300B30AC0 /* Assets.xcassets */; };
 		FEEB19FE23176B0300B30AC0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEEB19FC23176B0300B30AC0 /* LaunchScreen.storyboard */; };
 		FEEB1A0923176B0300B30AC0 /* Animal2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB1A0823176B0300B30AC0 /* Animal2Tests.swift */; };
@@ -74,9 +76,11 @@
 		FEBA544C2317A8B200E8EA2F /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		FEBA544E2317C29300E8EA2F /* AnimalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalViewModel.swift; sourceTree = "<group>"; };
 		FEC2C45B24349BBF00632815 /* TwoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoView.swift; sourceTree = "<group>"; };
+		FECEA6D42480ACB60022FE05 /* ObservableType+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ObservableType+ObjectMapper.swift"; sourceTree = "<group>"; };
+		FECEA6D52480ACB60022FE05 /* Single+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Single+ObjectMapper.swift"; sourceTree = "<group>"; };
+		FECEA6D62480ACB60022FE05 /* Response+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Response+ObjectMapper.swift"; sourceTree = "<group>"; };
 		FEEB19F023176B0200B30AC0 /* Animal2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Animal2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEEB19F323176B0200B30AC0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FEEB19F523176B0200B30AC0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FEEB19FA23176B0300B30AC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FEEB19FD23176B0300B30AC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FEEB19FF23176B0300B30AC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -197,6 +201,16 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		FECEA6D32480ACB60022FE05 /* Moya_ObjectMapper */ = {
+			isa = PBXGroup;
+			children = (
+				FECEA6D42480ACB60022FE05 /* ObservableType+ObjectMapper.swift */,
+				FECEA6D52480ACB60022FE05 /* Single+ObjectMapper.swift */,
+				FECEA6D62480ACB60022FE05 /* Response+ObjectMapper.swift */,
+			);
+			path = Moya_ObjectMapper;
+			sourceTree = "<group>";
+		};
 		FEEB19E723176B0200B30AC0 = {
 			isa = PBXGroup;
 			children = (
@@ -222,6 +236,7 @@
 		FEEB19F223176B0200B30AC0 /* Animal2 */ = {
 			isa = PBXGroup;
 			children = (
+				FECEA6D32480ACB60022FE05 /* Moya_ObjectMapper */,
 				FEC2C458243432FD00632815 /* ViewController */,
 				FEBA543023176DC900E8EA2F /* Service */,
 				FEBA542E23176DB200E8EA2F /* Model */,
@@ -229,7 +244,6 @@
 				FEBA543123176DDA00E8EA2F /* ViewModel */,
 				FEBA543323176E2900E8EA2F /* View */,
 				FEEB19F323176B0200B30AC0 /* AppDelegate.swift */,
-				FEEB19F523176B0200B30AC0 /* ViewController.swift */,
 				FEEB19FC23176B0300B30AC0 /* LaunchScreen.storyboard */,
 				FEEB19FA23176B0300B30AC0 /* Assets.xcassets */,
 				FEEB19FF23176B0300B30AC0 /* Info.plist */,
@@ -483,13 +497,15 @@
 				FEBA54492317A86E00E8EA2F /* OneViewController.swift in Sources */,
 				FEBA543B23176F3900E8EA2F /* TopCell.swift in Sources */,
 				FEBA544F2317C29300E8EA2F /* AnimalViewModel.swift in Sources */,
+				FECEA6D72480ACB60022FE05 /* ObservableType+ObjectMapper.swift in Sources */,
 				FEBA54472317A84A00E8EA2F /* AnimalService.swift in Sources */,
 				FEBA54432317A36900E8EA2F /* AnimalModel.swift in Sources */,
+				FECEA6D82480ACB60022FE05 /* Single+ObjectMapper.swift in Sources */,
+				FECEA6D92480ACB60022FE05 /* Response+ObjectMapper.swift in Sources */,
 				FEC2C45C24349BBF00632815 /* TwoView.swift in Sources */,
 				FEBA543923176F1D00E8EA2F /* OneCell.swift in Sources */,
 				FEBA544B2317A87A00E8EA2F /* TwoViewController.swift in Sources */,
 				FEBA544D2317A8B200E8EA2F /* FavoritesViewController.swift in Sources */,
-				FEEB19F623176B0200B30AC0 /* ViewController.swift in Sources */,
 				FEBA54412317A29700E8EA2F /* AnimalAPI.swift in Sources */,
 				FEEB19F423176B0200B30AC0 /* AppDelegate.swift in Sources */,
 			);
@@ -659,8 +675,9 @@
 			baseConfigurationReference = 22B4AFB61262DDDEEF54FADF /* Pods-Animal2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = TKC2G2KW83;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 255P62HHTP;
 				INFOPLIST_FILE = Animal2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -669,7 +686,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.m.health.app1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = health1.dev;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

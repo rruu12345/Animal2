@@ -2,8 +2,6 @@
 //  TwoView.swift
 //  Animal2
 //
-//  Created by Hira on 2020/4/1.
-//  Copyright © 2020 王一平. All rights reserved.
 //
 
 import UIKit

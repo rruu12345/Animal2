@@ -8,7 +8,7 @@
 
 import UIKit
 import Moya
-import Moya_ObjectMapper
+import ObjectMapper
 import RxSwift
 
 class AnimalAPI {
